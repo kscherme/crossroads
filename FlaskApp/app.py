@@ -37,10 +37,12 @@ def insertMovieDB(year, title, mid):
 def searchMovieDB(title):
 	# Format SQL
 	sql = 'SELECT * FROM Movies WHERE Title = "{}"'.format(title)
+	print sql
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
 	tuples = cursor.fetchall()
+	print tuples
 	# Return results
 	if tuples:
 		return tuples[0]
@@ -66,6 +68,7 @@ def insert():
 def search():
 	if request.method == 'POST':
 		searchMovie = request.form['movieSearch']
+		print searchMovie
 		searchMovieDB(searchMovie)
 		return render_template("search.html")
 
