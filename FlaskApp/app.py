@@ -4,15 +4,15 @@
 from flask import Flask, render_template, request
 
 import sys
-# import MySQLdb
+import MySQLdb
 
-# # Global Variables
+# Global Variables
 
-# # Database info
-# SQL_ADDR= 'localhost'
-# SQL_USER= 'kscherme'
-# SQL_PASSWD= 'crossroads111'
-# SQL_DB= 'crossroads'
+# Database info
+SQL_ADDR= 'localhost'
+SQL_USER= 'kscherme'
+SQL_PASSWD= 'crossroads111'
+SQL_DB= 'crossroads'
 
 # Flask info
 app = Flask(__name__)
@@ -23,10 +23,10 @@ def main():
 if __name__ == "__main__":
 	app.run(host='dsg1.crc.nd.edu',port=5201,debug=True)
 
-# Setup Database
-# db = MySQLdb.connect(host=SQL_ADDR, user=SQL_USER, passwd=SQL_PASSWD, db=SQL_DB)
+Setup Database
+db = MySQLdb.connect(host=SQL_ADDR, user=SQL_USER, passwd=SQL_PASSWD, db=SQL_DB)
 
-# cursor = db.cursor;
+cursor = db.cursor;
 
 # Functions
 
