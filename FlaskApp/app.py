@@ -20,7 +20,7 @@ app = Flask(__name__)
 # Setup Database
 db = MySQLdb.connect(host=SQL_ADDR, user=SQL_USER, passwd=SQL_PASSWD, db=SQL_DB)
 
-cursor = db.cursor;
+cursor = db.cursor();
 
 # Functions
 
