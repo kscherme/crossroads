@@ -2,10 +2,9 @@
 
 # Libraries
 from flask import Flask, render_template, request, redirect, url_for
-from flask_mysqldb import MySQL
 
 import sys
-#import MySQLdb
+import MySQLdb
 
 # Global Variables
 
@@ -17,7 +16,6 @@ SQL_DB= 'crossroads'
 
 # Flask info
 app = Flask(__name__)
-mysql = MySQL(app)
 
 # Setup Database
 db = MySQLdb.connect(host=SQL_ADDR, user=SQL_USER, passwd=SQL_PASSWD, db=SQL_DB)
