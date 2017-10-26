@@ -21,6 +21,15 @@ app = Flask(__name__)
 def main():
 	return render_template('index.html')
 
+@app.route("/insert", methods=['POST','GET'])
+def insert():
+	if request.form['submit'] == 'POST':
+		movieName = request.form['movieTitle']
+		movieYear = request.form['movieYear']
+		movieID = request.form['mid']
+		insertMovieDB(movieYear, movieName, movieID)
+		return render_template("insert.html", name=movieName, year=movieYear, mid=movieID)
+
 if __name__ == "__main__":
 	app.run(host='dsg1.crc.nd.edu',port=5201,debug=True)
 
@@ -42,14 +51,14 @@ def insertMovieDB(year, title, mid):
 
 # Flask templates
 
-@app.route("/insert", methods=['POST','GET'])
-def insert():
-	if request.form['submit'] == 'POST':
-		movieName = request.form['movieTitle']
-		movieYear = request.form['movieYear']
-		movieID = request.form['mid']
-		insertMovieDB(movieYear, movieName, movieID)
-		return render_template("insert.html", name=movieName, year=movieYear, mid=movieID)
+# @app.route("/insert", methods=['POST','GET'])
+# def insert():
+# 	if request.form['submit'] == 'POST':
+# 		movieName = request.form['movieTitle']
+# 		movieYear = request.form['movieYear']
+# 		movieID = request.form['mid']
+# 		insertMovieDB(movieYear, movieName, movieID)
+# 		return render_template("insert.html", name=movieName, year=movieYear, mid=movieID)
 
 
 
