@@ -1,7 +1,7 @@
 #!/usr/bin python
 
 # Libraries
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 import sys
 import MySQLdb
