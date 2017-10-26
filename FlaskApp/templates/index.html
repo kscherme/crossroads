@@ -8,10 +8,14 @@
 	<h1> Welcome to the Crossroads of Film</h1>
 	<h5> Currently under construction</h5>
 	<form action="/insert" method="post">
-		<p><input type = "text" name = "movieTitle" /></p>
-		<p><input type = "text" name = "movieYear" /></p>
-		<p><input type = "text" name = "mid" /></p>
-		<p><input type = "submit" value = "submit" /></p>
+		<p>Movie Title: <input type = "text" name = "movieTitle" /></p>
+		<p>Movie Year: <input type = "text" name = "movieYear" /></p>
+		<p>Movie ID: <input type = "text" name = "mid" /></p>
+		<p><input type = "submit" value = "INSERT" /></p>
+	</form>
+	<form action="/search" method="post">
+		<p>Search: <input type="text" name= "movieSearch" /></p>
+		<p><input type = "submit" vlaue = "SEARCH" /></p>
 	</form>
 </body>
 </html>

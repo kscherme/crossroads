@@ -33,6 +33,20 @@ def insertMovieDB(year, title, mid):
 	db.commit()
 	return True
 
+# Searches for movie by title
+def searchMovieDB(title):
+	# Format SQL
+	sql = 'SELECT * FROM Movies WHERE Title = "{}"'.format(title)
+	# Execute SQL
+	cursor.execute(sql)
+	# Collect Results
+	tuples = cursor.fetchall()
+	# Return results
+	if rows:
+		return rows[0]
+	else:
+		return 0
+
 # Flask templates
 
 @app.route("/")
@@ -48,17 +62,16 @@ def insert():
 		insertMovieDB(movieYear, movieName, movieID)
 		return render_template("insert.html", name=movieName, year=movieYear, mid=movieID)
 
+@app.route("/search", methods=['POST', 'GET'])
+def search():
+	if request.method == 'POST':
+		searchMovie = request.form['searchMovie']
+		searchMovieDB(searchMovie)
+		return render_template("search.html")
+
+
 if __name__ == "__main__":
 	app.run(host='dsg1.crc.nd.edu',port=5201,debug=True)
-
-# @app.route("/insert", methods=['POST','GET'])
-# def insert():
-# 	if request.form['submit'] == 'POST':
-# 		movieName = request.form['movieTitle']
-# 		movieYear = request.form['movieYear']
-# 		movieID = request.form['mid']
-# 		insertMovieDB(movieYear, movieName, movieID)
-# 		return render_template("insert.html", name=movieName, year=movieYear, mid=movieID)
 
 
 
