@@ -42,8 +42,8 @@ def searchMovieDB(title):
 	# Collect Results
 	tuples = cursor.fetchall()
 	# Return results
-	if rows:
-		return rows[0]
+	if tuples:
+		return tuples[0]
 	else:
 		return 0
 
