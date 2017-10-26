@@ -55,7 +55,7 @@ def index():
 
 @app.route("/insert", methods=['POST','GET'])
 def insert():
-	if request.method == 'POST':
+	if request.method == 'POST': 
 		movieName = request.form['movieTitle']
 		movieYear = request.form['movieYear']
 		movieID = request.form['mid']
@@ -65,8 +65,8 @@ def insert():
 @app.route("/search", methods=['POST', 'GET'])
 def search():
 	if request.method == 'POST':
-		searchMovie = request.form['searchMovie']
-		#searchMovieDB(searchMovie)
+		searchMovie = request.form['movieSearch']
+		searchMovieDB(searchMovie)
 		return render_template("search.html")
 
 
