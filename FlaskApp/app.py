@@ -27,7 +27,7 @@ cursor = db.cursor();
 # Inserts a new movie into the database
 def insertMovieDB(year, title, mid):
 	# Format SQL
-	sql = 'INSERT INTO movies (year, title, movieid) VALUES ("{}", "{}", "{}")'.format(year, title, mid)
+	sql = 'INSERT INTO Movies (year, title, movieid) VALUES ("{}", "{}", "{}")'.format(year, title, mid)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
