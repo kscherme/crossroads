@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def main():
-	return render_template('insert.html')
+	return render_template('index.html')
 
 if __name__ == "__main__":
 	app.run(host='dsg1.crc.nd.edu',port=5201,debug=True)
@@ -49,6 +49,7 @@ def insert():
 		movieYear = request.form['movieYear']
 		movieID = request.form['mid']
 		insertMovieDB(movieYear, movieName, movieID)
+		return render_template("insert.html", name=movieName, year=movieYear, mid=movieID)
 
 
 
