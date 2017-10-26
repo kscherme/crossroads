@@ -16,9 +16,9 @@ SQL_DB= 'crossroads'
 
 # Flask info
 app = Flask(__name__)
-# @app.route("/")
-# def main():
-# 	return render_template('index.html')
+@app.route("/")
+def main():
+	return redirect(url_for('insert'))
 
 if __name__ == "__main__":
 	app.run(host='dsg1.crc.nd.edu',port=5201,debug=True)
@@ -40,12 +40,9 @@ def insertMovieDB(year, title, mid):
 	return True
 
 # Flask templates
-@app.route("/")
-def index():
-	return redirect(url_for('insert'))
 
 @app.route("/insert", methods=['POST','GET'])
-def insertMovie():
+def insert():
 	if request.form['submit'] == 'POST':
 		movieName = request.form['movieTitle']
 		movieYear = request.form['movieYear']
