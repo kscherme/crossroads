@@ -16,6 +16,9 @@ import sys
 
 # Flask info
 app = Flask(__name__)
+@app.route("/")
+def main():
+	return render_template('index.html')
 
 if __name__ == "__main__":
 	app.run(host='dsg1.crc.nd.edu',port=5201,debug=True)
@@ -37,9 +40,9 @@ if __name__ == "__main__":
 # 	return True
 
 # Flask templates
-@app.route("/")
-def main():
-	return render_template('index.html')
+# @app.route("/")
+# def main():
+# 	return render_template('index.html')
 
 # @app.route("/insertMovie", methods=['POST'])
 # def insertMovie():
