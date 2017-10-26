@@ -23,7 +23,7 @@ def main():
 if __name__ == "__main__":
 	app.run(host='dsg1.crc.nd.edu',port=5201,debug=True)
 
-Setup Database
+# Setup Database
 db = MySQLdb.connect(host=SQL_ADDR, user=SQL_USER, passwd=SQL_PASSWD, db=SQL_DB)
 
 cursor = db.cursor;
