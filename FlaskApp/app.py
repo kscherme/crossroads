@@ -36,7 +36,7 @@ def insertMovieDB(year, title, mid):
 # Flask templates
 
 @app.route("/")
-def main():
+def index():
 	return render_template('index.html')
 
 @app.route("/insert", methods=['POST','GET'])
