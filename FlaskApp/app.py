@@ -28,26 +28,26 @@ cursor = db.cursor;
 # Functions
 
 # Inserts a new movie into the database
-def insertMovieDB(year, title, mid):
-	# Format SQL
-	sql = 'INSERT INTO movies (year, title, movieid) VALUES ("{}", "{}", "{}")'.format(year, title, mid)
-	# Execute SQL
-	cursor.execute(sql)
-	db.commit()
-	return True
+# def insertMovieDB(year, title, mid):
+# 	# Format SQL
+# 	sql = 'INSERT INTO movies (year, title, movieid) VALUES ("{}", "{}", "{}")'.format(year, title, mid)
+# 	# Execute SQL
+# 	cursor.execute(sql)
+# 	db.commit()
+# 	return True
 
 # Flask templates
 @app.route("/")
 def main():
 	return render_template('index.html')
 
-@app.route("/insertMovie", methods=['POST'])
-def insertMovie():
-	if request.form['submit'] == 'POST':
-		movieName = request.form['movieTitle']
-		movieYear = request.form['movieYear']
-		movieID = request.form['mid']
-		insertMovieDB(movieYear, movieName, movieID)
+# @app.route("/insertMovie", methods=['POST'])
+# def insertMovie():
+# 	if request.form['submit'] == 'POST':
+# 		movieName = request.form['movieTitle']
+# 		movieYear = request.form['movieYear']
+# 		movieID = request.form['mid']
+# 		insertMovieDB(movieYear, movieName, movieID)
 
 
 
