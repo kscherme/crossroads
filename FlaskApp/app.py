@@ -16,17 +16,10 @@ SQL_DB= 'crossroads'
 
 # Flask info
 app = Flask(__name__)
-@app.route("/insert", methods=['POST','GET'])
-def insert():
-	if request.form['submit'] == 'POST':
-		movieName = request.form['movieTitle']
-		movieYear = request.form['movieYear']
-		movieID = request.form['mid']
-		insertMovieDB(movieYear, movieName, movieID)
-		
+
 @app.route("/")
 def main():
-	return redirect(url_for('insert'))
+	return render_template('insert.html')
 
 if __name__ == "__main__":
 	app.run(host='dsg1.crc.nd.edu',port=5201,debug=True)
