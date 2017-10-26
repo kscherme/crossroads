@@ -66,7 +66,7 @@ def insert():
 def search():
 	if request.method == 'POST':
 		searchMovie = request.form['searchMovie']
-		searchMovieDB(searchMovie)
+		#searchMovieDB(searchMovie)
 		return render_template("search.html")
 
 
