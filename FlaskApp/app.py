@@ -7,7 +7,7 @@ def main():
 	return render_template('index.html')
 
 if __name__ == "__main__":
-	app.run()
+	app.run(host='dsg1.crc.nd.edu',port=5200)
 
 #help
 
