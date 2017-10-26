@@ -16,8 +16,13 @@ SQL_DB= 'crossroads'
 
 # Flask info
 app = Flask(__name__)
-@app.route("/")
+@app.route("/", methods=['POST'])
 def main():
+	if request.form['submit'] == 'POST':
+		movieName = request.form['movieTitle']
+		movieYear = request.form['movieYear']
+		movieID = request.form['mid']
+		insertMovieDB(movieYear, movieName, movieID)
 	return render_template('index.html')
 
 if __name__ == "__main__":
@@ -44,13 +49,13 @@ def insertMovieDB(year, title, mid):
 # def main():
 # 	return render_template('index.html')
 
-@app.route("/insertMovie", methods=['POST'])
-def insertMovie():
-	if request.form['submit'] == 'POST':
-		movieName = request.form['movieTitle']
-		movieYear = request.form['movieYear']
-		movieID = request.form['mid']
-		insertMovieDB(movieYear, movieName, movieID)
+# @app.route("/insertMovie", methods=['POST'])
+# def insertMovie():
+# 	if request.form['submit'] == 'POST':
+# 		movieName = request.form['movieTitle']
+# 		movieYear = request.form['movieYear']
+# 		movieID = request.form['mid']
+# 		insertMovieDB(movieYear, movieName, movieID)
 
 
 
