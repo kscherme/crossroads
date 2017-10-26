@@ -44,7 +44,7 @@ def insertMovieDB(year, title, mid):
 # def main():
 # 	return render_template('index.html')
 
-@app.route("/", methods=['POST'])
+@app.route("/", methods=['POST','GET'])
 def insertMovie():
 	if request.form['submit'] == 'POST':
 		movieName = request.form['movieTitle']
