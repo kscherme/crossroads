@@ -50,7 +50,7 @@ def searchMovieDB(title):
 # Deleted movie from database
 def deleteMovie(movieID):
 	# Format SQL
-	sql = 'DELETE FROM Movies WHERE mid = {}'.format(movieID)
+	sql = 'DELETE FROM Movies WHERE MovieID = {}'.format(movieID)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
