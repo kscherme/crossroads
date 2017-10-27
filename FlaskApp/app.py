@@ -37,17 +37,24 @@ def insertMovieDB(year, title, mid):
 def searchMovieDB(title):
 	# Format SQL
 	sql = 'SELECT * FROM Movies WHERE Title = "{}"'.format(title)
-	print sql
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
 	tuples = cursor.fetchall()
-	print tuples
 	# Return results
 	if tuples:
 		return tuples[0]
 	else:
 		return 0
+
+# Deleted movie from database
+def deleteMovie(movieID):
+	# Format SQL
+	sql = 'DELETE FROM Movies WHERE mid = {}'.format(movieID)
+	# Execute SQL
+	cursor.execute(sql)
+	db.commit()
+	return True
 
 # Flask templates
 
@@ -68,9 +75,14 @@ def insert():
 def search():
 	if request.method == 'POST':
 		searchMovie = request.form['movieSearch']
-		print searchMovie
 		tuples = searchMovieDB(searchMovie)
 		return render_template("search.html", result=tuples)
+
+@app.route("/delete", methods=['DELETE'])
+def delete():
+	movieID = request.form['mid']
+	deleteMovie(movieID)
+	return redirect(url_for('/'))
 
 
 if __name__ == "__main__":
