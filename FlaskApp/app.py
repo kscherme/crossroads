@@ -83,7 +83,7 @@ def delete():
 	if request.method == 'POST':
 		movieID = request.form['movieID']
 		deleteMovie(movieID)
-		return redirect(url_for('/'))
+		return render_template('index.html')
 
 
 if __name__ == "__main__":
