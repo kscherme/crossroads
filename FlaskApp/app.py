@@ -78,11 +78,12 @@ def search():
 		tuples = searchMovieDB(searchMovie)
 		return render_template("search.html", result=tuples)
 
-@app.route("/delete", methods=['DELETE'])
+@app.route("/delete", methods=['POST'])
 def delete():
-	movieID = request.form['mid']
-	deleteMovie(movieID)
-	return redirect(url_for('/'))
+	if request.method == 'POST':
+		movieID = request.form['movieID']
+		deleteMovie(movieID)
+		return redirect(url_for('/'))
 
 
 if __name__ == "__main__":
