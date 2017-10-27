@@ -86,7 +86,7 @@ def delete():
 
 
 if __name__ == "__main__":
-	app.run(host='dsg1.crc.nd.edu',port=5201,debug=True)
+	app.run(host='dsg1.crc.nd.edu',port=5202,debug=True)
 
 
 
