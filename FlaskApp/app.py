@@ -56,6 +56,22 @@ def deleteMovie(movieID):
 	db.commit()
 	return True
 
+# Update movie rating
+def updateMovieRating(movieID):
+	# Get Current Rating
+	sql = 'SELECT Rating FROM Ratings WHERE MovieID = {}'.format(movieID)
+	cursor.execute(sql)
+	currentRating = cursor.fetchall()
+        currentRating = int(currentRating[0])
+	# Calculate New Rating
+	newRating = currentRating + 10
+	# Format SQL
+	sql = 'UPDATE Ratings SET Rating = {} WHERE MovieID = {}'.format(newRating, movieID)
+	# Execute SQL
+	cursor.execute(sql)
+	db.commit()
+	return True
+
 # Flask templates
 
 @app.route("/")
@@ -85,6 +101,14 @@ def delete():
 		deleteMovie(movieID)
 		return render_template('index.html')
 
+@app.route("/update", methods=['POST','GET'])
+def update():
+	if request.method == 'POST':
+		movieID = request.form['movieID']
+		rating = request.form['currentRating']
+		updateMovieRating(movieID)
+		return render_template("update.html", movieID=movieID, rating=rating)
+		
 
 if __name__ == "__main__":
 	app.run(host='dsg1.crc.nd.edu',port=5202,debug=True)
