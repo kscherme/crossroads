@@ -76,7 +76,7 @@ def updateMovieRating(movieID):
 
 @app.route("/")
 def index():
-	return render_template('homepage.html')
+	return render_template('index.html')
 
 @app.route("/insert", methods=['POST','GET'])
 def insert():
