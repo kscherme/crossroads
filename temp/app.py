@@ -63,8 +63,8 @@ def updateMovieRating(movieID, userRating):
 	sql = 'SELECT Rating FROM Ratings WHERE MovieID = "{}"'.format(movieID)
 	cursor.execute(sql)
 	currentRating = cursor.fetchall()
-        if currentRating:
-        	currentRating = int(currentRating[0][0])
+	if currentRating:
+		currentRating = int(currentRating[0][0])
 	else:
 		return 0
 	# Calculate New Rating
@@ -91,11 +91,10 @@ def insert():
 	if request.method == 'POST': 
 		movieName = request.form['movieTitle']
 		movieYear = request.form['movieYear']
-		# movieID = request.form['mid']
 		insertMovieDB(movieYear, movieName)
-		return render_template("insert.html", name=movieName, year=movieYear, mid="")
+		return render_template("insert.html", name=movieName, year=movieYear)
 	else:
-		return render_template("insert.html", name="", year="", mid="")
+		return render_template("insert.html", name="", year="")
 
 
 @app.route("/search", methods=['POST', 'GET'])
