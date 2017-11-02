@@ -93,7 +93,10 @@ def insert():
 		movieYear = request.form['movieYear']
 		movieID = request.form['mid']
 		insertMovieDB(movieYear, movieName, movieID)
-		return render_template("insert.html")
+		return render_template("insert.html", name=movieName, year=movieYear, mid=movieID)
+	else:
+		return render_template("insert.html", name="", year="", mid="")
+
 
 @app.route("/search", methods=['POST', 'GET'])
 def search():
