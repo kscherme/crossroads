@@ -62,12 +62,15 @@ def updateMovieRating(movieID, userRating):
 	# Also get number of votes
 	sql = 'SELECT Rating, numVotes FROM Ratings WHERE MovieID = "{}"'.format(movieID)
 	cursor.execute(sql)
-	currentRating, numVotes = cursor.fetchall()
-	if currentRating:
-		currentRating = int(currentRating[0])
-		numVotes = int(numVotes[0])
-	else:
-		return 0
+	rows = cursor.fetchall()
+	currentRating = rows[0][0]
+	numVotes = rows[0][1]
+	# currentRating, NumVotes = cursor.fetchall()
+	# if currentRating:
+	# 	currentRating = int(currentRating[0])
+	# 	NumVotes = int(NumVotes[0])
+	# else:
+	# 	return 0
 	# Calculate New Rating
 	SumRatings = currentRating*NumVotes
 	SumRatings = SumRatings + int(userRating)
