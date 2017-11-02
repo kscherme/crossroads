@@ -25,7 +25,7 @@ cursor = db.cursor();
 # Functions
 
 # Inserts a new movie into the database
-def insertMovieDB(year, title, mid):
+def insertMovieDB(year, title):
 	# Format SQL
 	sql = 'INSERT INTO Movies (year, title) VALUES ("{}", "{}")'.format(year, title)
 	# Execute SQL
@@ -92,7 +92,7 @@ def insert():
 		movieName = request.form['movieTitle']
 		movieYear = request.form['movieYear']
 		# movieID = request.form['mid']
-		insertMovieDB(movieYear, movieName, movieID)
+		insertMovieDB(movieYear, movieName)
 		return render_template("insert.html", name=movieName, year=movieYear, mid="")
 	else:
 		return render_template("insert.html", name="", year="", mid="")
