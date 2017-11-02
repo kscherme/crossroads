@@ -112,7 +112,9 @@ def delete():
 	if request.method == 'POST':
 		movieID = request.form['movieID']
 		deleteMovie(movieID)
-		return render_template('index.html')
+		return render_template('search.html')
+	else:
+		return render_template('search.html')
 
 @app.route("/update", methods=['POST','GET'])
 def update():
