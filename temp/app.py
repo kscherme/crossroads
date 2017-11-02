@@ -83,7 +83,7 @@ def updateMovieRating(movieID, userRating):
 # Flask templates
 
 @app.route("/")
-def index():
+def homepage():
 	return render_template('homepage.html')
 
 @app.route("/insert", methods=['POST','GET'])
