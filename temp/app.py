@@ -25,9 +25,9 @@ cursor = db.cursor();
 # Functions
 
 # Inserts a new movie into the database
-def insertMovieDB(year, title):
+def insertMovieDB(year, title, is_tv):
 	# Format SQL
-	sql = 'INSERT INTO Movies (year, title) VALUES ("{}", "{}")'.format(year, title)
+	sql = 'INSERT INTO Movies (year, title, is_tv) VALUES ("{}", "{}", "{}")'.format(year, title, is_tv)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
@@ -50,7 +50,7 @@ def searchMovieDB(title):
 # Deleted movie from database
 def deleteMovie(movieID):
 	# Format SQL
-	sql = 'DELETE FROM Movies WHERE MovieID = {}'.format(movieID)
+	sql = 'DELETE FROM Movies WHERE movieID = {}'.format(movieID)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
@@ -95,7 +95,8 @@ def insert():
 	if request.method == 'POST': 
 		movieName = request.form['movieTitle']
 		movieYear = request.form['movieYear']
-		insertMovieDB(movieYear, movieName)
+		is_tv = request.form['is_tv']
+		insertMovieDB(movieYear, movieName, is_tv)
 		return render_template("insert.html", name=movieName, year=movieYear)
 	else:
 		return render_template("insert.html", name="", year="")
