@@ -64,7 +64,7 @@ def updateMovieRating(movieID, userRating):
 	cursor.execute(sql)
 	rows = cursor.fetchall()
 	currentRating = rows[0][0]
-	numVotes = rows[0][1]
+	NumVotes = rows[0][1]
 	# currentRating, NumVotes = cursor.fetchall()
 	# if currentRating:
 	# 	currentRating = int(currentRating[0])
