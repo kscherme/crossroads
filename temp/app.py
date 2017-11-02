@@ -104,6 +104,8 @@ def search():
 		searchMovie = request.form['movieSearch']
 		tuples = searchMovieDB(searchMovie)
 		return render_template("search.html", movieID=tuples[0], name=tuples[1], year=tuples[2])#result=tuples)
+	else:
+		return render_template("search.html", movieID="", name="", year="")
 
 @app.route("/delete", methods=['POST'])
 def delete():
