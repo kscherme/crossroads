@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>The Crossroads of Film</title>
+</head>
+<body>
+	<h1> Welcome to the Crossroads of Film</h1>
+	<h5> Currently under construction</h5>
+	<p>Movie: {{ name }}</p>
+        <p>MovieID: {{ movieID }}</p>
+        <p>Year: {{ year }}</p>
+	<form action="/delete" method="post">
+                <input type="hidden" name="movieID" value=movieID>
+		<p><input type = "submit" value = "DELETE" /></p>
+	</form>
+</body>
+</html>
