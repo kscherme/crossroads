@@ -123,6 +123,8 @@ def update():
 		userRating = request.form['userRating']
 		rating = updateMovieRating(movieID, userRating)
 		return render_template("update.html", movieID=movieID, rating=rating)
+	else:
+		return render_template("update.html", movieID="", rating="")
 		
 
 if __name__ == "__main__":

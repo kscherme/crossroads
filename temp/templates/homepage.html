@@ -10,12 +10,12 @@
 	<div class="row">
 		<a href="{{ url_for('search') }}" class="button1">Search for Films</a>
 		<a href="index.html" class="button1">Advanced Search</a>
-		<a href="rate.html" class="button1">Rate a Film</a>
+		<a href="{{ url_for('update') }}" class="button1">Rate a Film</a>
 		<a href="index.html" class="button1">Get Recommendations</a>
 	</div>
 	<div class="bottomButton">
 		<a href="{{ url_for('insert') }}">Insert</a>
-		<a href="delete.html">Delete</a>
+		<a href="{{ url_for('search') }}">Delete</a>
 	</div>
 </body>
 </html>
