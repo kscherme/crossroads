@@ -60,21 +60,22 @@ def deleteMovie(movieID):
 def updateMovieRating(movieID, userRating):
 	# Get Current Rating
 	# Also get number of votes
-	sql = 'SELECT Rating FROM Ratings WHERE MovieID = "{}"'.format(movieID)
+	sql = 'SELECT Rating, numVotes FROM Ratings WHERE MovieID = "{}"'.format(movieID)
 	cursor.execute(sql)
-	currentRating = cursor.fetchall()
+	currentRating, numVotes = cursor.fetchall()
 	if currentRating:
-		currentRating = int(currentRating[0][0])
+		currentRating = int(currentRating[0])
+		numVotes = int(numVotes[0])
 	else:
 		return 0
 	# Calculate New Rating
-        # SumRatings = currentRating*NumVotes
-	# SumRatings + int(userRating)
-	# NumVotes + 1
-	# newRating = SumRatings / NumVotes 
-	newRating = currentRating + 10
+	SumRatings = currentRating*NumVotes
+	SumRatings = SumRatings + int(userRating)
+	NumVotes = NumVotes + 1
+	newRating = SumRatings / NumVotes 
+	#newRating = currentRating + 10
 	# Format SQL
-	sql = 'UPDATE Ratings SET Rating = "{}" WHERE MovieID = "{}"'.format(newRating, movieID)
+	sql = 'UPDATE Ratings SET Rating = "{}", numVotes = "{}" WHERE MovieID = "{}"'.format(newRating, NumVotes, movieID)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
