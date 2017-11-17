@@ -131,13 +131,16 @@ def delete():
 
 @app.route("/update", methods=['POST','GET'])
 def update():
+    	tuples = []
 	if request.method == 'POST':
-		movieID = request.form['movieID']
-		userRating = request.form['userRating']
-		rating = updateMovieRating(movieID, userRating)
-		return render_template("update.html", movieID=movieID, rating=rating)
+    		searchMovie = request.form['movieSearch']
+		#movieID = request.form['movieID']
+		#userRating = request.form['userRating']
+		#rating = updateMovieRating(movieID, userRating)
+		tuples = searchMovieDB(searchMovie)
+		return render_template("update.html", tuples=tuples, movieID=None)
 	else:
-		return render_template("update.html", movieID="", rating="")
+		return render_template("update.html", tuples=None, movieID=None)
 		
 
 if __name__ == "__main__":
