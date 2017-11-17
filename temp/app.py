@@ -115,7 +115,7 @@ def search():
 		#return render_template("search.html", movieID=tuples[0], name=tuples[1], year=tuples[2])#result=tuples)
 			return render_template("search.html", tuples = tuples)
 		else:
-    			return render_template("search.html", tuples = null)
+    			return render_template("search.html", tuples = None)
 	else:
 		#return render_template("search.html", movieID="", name="", year="")
 		return render_template("search.html", tuples = tuples)
