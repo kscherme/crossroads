@@ -15,7 +15,7 @@
         <tr>
                 {% if tuples %}
                         {% for row in tuples %}
-                                <a href="{{ url_for('update', tuples = None, movieID = row[0] }}">{{ row[1] }}</a>
+                                <a href="{{ url_for('update', tuples = None, movieID = row[0]) }}">{{ row[1] }}</a>
                                 <br>			
                         {% endfor %}
                 {% else %}
