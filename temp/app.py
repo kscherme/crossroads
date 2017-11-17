@@ -161,13 +161,12 @@ def update():
 
 @app.route("/rate/<movieID>", methods=['POST', 'GET'])
 def rate(movieID=None):
-    	return render_template("rate.html", movieID=movieID, rating="")
 	if request.method == 'POST':
 		userRating = request.form['userRating']
 		rating = updateMovieRating(movieID, userRating)
 		return render_template("rate.html", movieID=None, rating=rating)
 	else:
-		return render_template("rate.html", movieID=None, rating="")
+		return render_template("rate.html", movieID=movieID, rating="")
 
 
 if __name__ == "__main__":
