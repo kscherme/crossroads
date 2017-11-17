@@ -12,7 +12,11 @@
 		<p>Search by Movie Title: <input type="text" name= "movieSearch" /></p>
 		<p><input type = "submit" value = "SEARCH" /></p>
 	</form>
-	<h1>{{ tuples[1][1] }}</h1>
+	<tr>
+		{% for row in tuples %}
+			<td>{{row[0]}}</td>
+		{% endfor %}
+	</tr>
 	<!-- <tr>
 		{% for row in tuples %}
 		   <td>{{row[0]}}</td>
