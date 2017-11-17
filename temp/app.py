@@ -110,6 +110,7 @@ def search():
 	if request.method == 'POST':
 		searchMovie = request.form['movieSearch']
 		tuples = searchMovieDB(searchMovie)
+		print tuples
 		#return render_template("search.html", movieID=tuples[0], name=tuples[1], year=tuples[2])#result=tuples)
 		return render_template("search.html", tuples = tuples)
 	else:
