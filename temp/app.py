@@ -159,8 +159,8 @@ def update():
 	else:
 		return render_template("update.html", tuples=None)
 
-@app.route("/rate", methods=['POST', 'GET'])
-def rate(movieID):
+@app.route("/rate/<movieID>", methods=['POST', 'GET'])
+def rate(movieID=None):
     	return render_template("rate.html", movieID=movieID)
   #   	tuples = []
 	# if request.method == 'POST':
