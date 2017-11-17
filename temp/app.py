@@ -37,7 +37,7 @@ def insertMovieDB(year, title, is_tv):
 def searchMovieDB(title):
     	title = "%" + title + "%"
 	# Format SQL
-	sql = 'SELECT movieID, title, year, is_tv FROM Movies WHERE Title LIKE "{}" and is_tv = 0'.format(title)
+	sql = 'SELECT movieID, title, year, is_tv FROM Movies WHERE Title LIKE "{}" and is_tv = 1'.format(title)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
