@@ -9,10 +9,24 @@
         <h1> Welcome to the Crossroads of Film</h1>
         <h5> Currently under construction</h5>
         <form action="/update" method="post">
+		<p>Search by Movie Title: <input type="text" name= "movieSearch" /></p>
+		<p><input type = "submit" value = "SEARCH" /></p>
+	</form>
+        <tr>
+                {% if tuples %}
+                        {% for row in tuples %}
+                                <a href="{{ url_for('update', tuples = None, movieID = {{row[0]}}) }}">{{row[1]}}</a>
+                                <br>			
+                        {% endfor %}
+                {% else %}
+                        <td>No movies found!</td><br>
+                {% endif %}
+        </tr>
+        <!-- <form action="/update" method="post">
                 <p>MovieID: <input type="text" name="movieID"</p>
                 <p>Rating: <input type="text" name="userRating"</p>
                 <p><input type = "submit" value="UPDATE">
-        </form>
+        </form> -->
         <p>MovieID: {{ movieID }}</p>
 	<p>Updated Rating: {{ rating }}</p>
 	<a href="{{ url_for('homepage') }}" class="button1">Back</a>
