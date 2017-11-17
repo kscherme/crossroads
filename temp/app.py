@@ -113,7 +113,7 @@ def search():
 		return render_template("search.html", tuples = tuples)
 	else:
 		#return render_template("search.html", movieID="", name="", year="")
-		retrun render_template("search.html", tuples = "")
+		return render_template("search.html", tuples = "")
 
 @app.route("/delete", methods=['POST'])
 def delete():
