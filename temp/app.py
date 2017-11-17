@@ -35,6 +35,7 @@ def insertMovieDB(year, title, is_tv):
 
 # Searches for movie by title
 def searchMovieDB(title):
+    title = "%" + title + "%"
 	# Format SQL
 	sql = 'SELECT * FROM Movies WHERE Title = "{}"'.format(title)
 	# Execute SQL
@@ -42,10 +43,11 @@ def searchMovieDB(title):
 	# Collect Results
 	tuples = cursor.fetchall()
 	# Return results
-	if tuples:
-		return (int(tuples[0][0]), tuples[0][1], int(tuples[0][2])) 
-	else:
-		return 0
+	return tuples
+	# if tuples:
+	# 	return (int(tuples[0][0]), tuples[0][1], int(tuples[0][2])) 
+	# else:
+	# 	return 0
 
 # Deleted movie from database
 def deleteMovie(movieID):
@@ -107,9 +109,11 @@ def search():
 	if request.method == 'POST':
 		searchMovie = request.form['movieSearch']
 		tuples = searchMovieDB(searchMovie)
-		return render_template("search.html", movieID=tuples[0], name=tuples[1], year=tuples[2])#result=tuples)
+		#return render_template("search.html", movieID=tuples[0], name=tuples[1], year=tuples[2])#result=tuples)
+		return render_template("search.html", tuples = tuples)
 	else:
-		return render_template("search.html", movieID="", name="", year="")
+		#return render_template("search.html", movieID="", name="", year="")
+		retrun render_template("search.html", tuples = "")
 
 @app.route("/delete", methods=['POST'])
 def delete():

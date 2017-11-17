@@ -12,13 +12,20 @@
 		<p>Search by Movie Title: <input type="text" name= "movieSearch" /></p>
 		<p><input type = "submit" value = "SEARCH" /></p>
 	</form>
-	<p>Movie: {{ name }}</p>
+	<tr>
+		{% for row in tuples %}
+		   <td>{{row[0]}}</td>
+		   <td>{{row[1]}}</td> 
+		   <td>{{row[2]}}</td>
+		{% endfor %}
+	</tr>
+	<!-- <p>Movie: {{ name }}</p>
         <p>MovieID: {{ movieID }}</p>
-        <p>Year: {{ year }}</p>
-	<form action="/delete" method="post">
+        <p>Year: {{ year }}</p> -->
+	<!-- <form action="/delete" method="post">
 		<input type="hidden" name="movieID" value=movieID>
 		<p><input type = "submit" value = "DELETE" /></p>
-	</form>
+	</form> -->
 	<a href="{{ url_for('homepage') }}" class="button1">Back</a>
 </body>
 </html>
