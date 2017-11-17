@@ -106,6 +106,7 @@ def insert():
 
 @app.route("/search", methods=['POST', 'GET'])
 def search():
+    	tuples = []
 	if request.method == 'POST':
 		searchMovie = request.form['movieSearch']
 		tuples = searchMovieDB(searchMovie)
@@ -113,7 +114,7 @@ def search():
 		return render_template("search.html", tuples = tuples)
 	else:
 		#return render_template("search.html", movieID="", name="", year="")
-		return render_template("search.html", tuples = "")
+		return render_template("search.html", tuples = tuples)
 
 @app.route("/delete", methods=['POST'])
 def delete():
