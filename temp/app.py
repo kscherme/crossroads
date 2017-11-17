@@ -161,16 +161,13 @@ def update():
 
 @app.route("/rate/<movieID>", methods=['POST', 'GET'])
 def rate(movieID=None):
-    	return render_template("rate.html", movieID=movieID)
-  #   	tuples = []
-	# if request.method == 'POST':
-	# 	#movieID = request.form['movieID']
-	# 	#userRating = request.form['userRating']
-	# 	#rating = updateMovieRating(movieID, userRating)
-	# 	#tuples = searchMovieDB(searchMovie)
-	# 	return render_template("rate.html", movieID=None)
-	# else:
-	# 	return render_template("rate.html", movieID=None)
+    	return render_template("rate.html", movieID=movieID, rating="")
+	if request.method == 'POST':
+		userRating = request.form['userRating']
+		rating = updateMovieRating(movieID, userRating)
+		return render_template("rate.html", movieID=None, rating=rating)
+	else:
+		return render_template("rate.html", movieID=None, rating="")
 
 
 if __name__ == "__main__":
