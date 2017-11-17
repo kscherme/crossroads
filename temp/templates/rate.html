@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <title>The Crossroads of Film</title>
+        <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+        <h1> Welcome to the Crossroads of Film</h1>
+        <h5> Currently under construction</h5>
+        <form action="/update" method="post">
+                <p>Rating: <input type="text" name="userRating"</p>
+                <p><input type = "submit" value="UPDATE">
+        </form>
+        <p>MovieID: {{ movieID }}</p>
+	<p>Updated Rating: {{ rating }}</p>
+	<a href="{{ url_for('homepage') }}" class="button1">Back</a>
+</body>
+</html>
