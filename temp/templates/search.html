@@ -13,13 +13,15 @@
 		<p><input type = "submit" value = "SEARCH" /></p>
 	</form>
 	<tr>
-		{% for row in tuples %}
-			<td>{{row[0]}}</td>
-			<td>{{row[1]}}</td> 
-			<td>{{row[2]}}</td>
-			<td>{{row[3]}}</td>
-			<br>			
-		{% endfor %}
+		{% if tuplese %}
+			{% for row in tuples %}
+				<td>{{row[0]}}</td>
+				<td>{{row[1]}}</td> 
+				<td>{{row[2]}}</td>
+				<td>{{row[3]}}</td>
+				<br>			
+			{% endfor %}
+		{% endif %}
 	</tr>
 	<!-- <tr>
 		{% for row in tuples %}
