@@ -9,35 +9,42 @@ import MySQLdb
 # Global Variables
 
 # Database info
-SQL_ADDR= 'localhost'
-SQL_USER= 'kscherme'
-SQL_PASSWD= 'crossroads111'
-SQL_DB= 'crossroads'
+SQL_ADDR = 'localhost'
+SQL_USER = 'kscherme'
+SQL_PASSWD = 'crossroads111'
+SQL_DB = 'crossroads'
 
 # Flask info
 app = Flask(__name__)
 
 # Setup Database
-db = MySQLdb.connect(host=SQL_ADDR, user=SQL_USER, passwd=SQL_PASSWD, db=SQL_DB)
+db = MySQLdb.connect(host=SQL_ADDR, user=SQL_USER,
+                     passwd=SQL_PASSWD, db=SQL_DB)
 
-cursor = db.cursor();
+cursor = db.cursor()
 
 # Functions
 
 # Inserts a new movie into the database
+
+
 def insertMovieDB(year, title, is_tv):
 	# Format SQL
-	sql = 'INSERT INTO Movies (year, title, is_tv) VALUES ("{}", "{}", "{}")'.format(year, title, is_tv)
+	sql = 'INSERT INTO Movies (year, title, is_tv) VALUES ("{}", "{}", "{}")'.format(
+		year, title, is_tv)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
 	return True
 
 # Searches for movie by title
+
+
 def searchMovieDB(title):
     	title = "%" + title + "%"
 	# Format SQL
-	sql = 'SELECT movieID, title, year, is_tv FROM Movies WHERE Title LIKE "{}" and is_tv = 1'.format(title)
+	sql = 'SELECT movieID, title, year, is_tv FROM Movies WHERE Title LIKE "{}" and is_tv = 1'.format(
+		title)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
@@ -45,11 +52,13 @@ def searchMovieDB(title):
 	# Return results
 	return tuples
 	# if tuples:
-	# 	return (int(tuples[0][0]), tuples[0][1], int(tuples[0][2])) 
+	# 	return (int(tuples[0][0]), tuples[0][1], int(tuples[0][2]))
 	# else:
 	# 	return 0
 
 # Deleted movie from database
+
+
 def deleteMovie(movieID):
 	# Format SQL
 	sql = 'DELETE FROM Movies WHERE movieID = {}'.format(movieID)
@@ -59,10 +68,13 @@ def deleteMovie(movieID):
 	return True
 
 # Update movie rating
+
+
 def updateMovieRating(movieID, userRating):
 	# Get Current Rating
 	# Also get number of votes
-	sql = 'SELECT Rating, numVotes FROM Ratings WHERE MovieID = "{}"'.format(movieID)
+	sql = 'SELECT Rating, numVotes FROM Ratings WHERE MovieID = "{}"'.format(
+		movieID)
 	cursor.execute(sql)
 	rows = cursor.fetchall()
 	currentRating = rows[0][0]
@@ -74,13 +86,14 @@ def updateMovieRating(movieID, userRating):
 	# else:
 	# 	return 0
 	# Calculate New Rating
-	SumRatings = currentRating*NumVotes
+	SumRatings = currentRating * NumVotes
 	SumRatings = SumRatings + int(userRating)
 	NumVotes = NumVotes + 1
-	newRating = SumRatings / NumVotes 
+	newRating = SumRatings / NumVotes
 	#newRating = currentRating + 10
 	# Format SQL
-	sql = 'UPDATE Ratings SET Rating = "{}", numVotes = "{}" WHERE MovieID = "{}"'.format(newRating, NumVotes, movieID)
+	sql = 'UPDATE Ratings SET Rating = "{}", numVotes = "{}" WHERE MovieID = "{}"'.format(
+		newRating, NumVotes, movieID)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
@@ -88,13 +101,15 @@ def updateMovieRating(movieID, userRating):
 
 # Flask templates
 
+
 @app.route("/")
 def homepage():
 	return render_template('homepage.html')
 
-@app.route("/insert", methods=['POST','GET'])
+
+@app.route("/insert", methods=['POST', 'GET'])
 def insert():
-	if request.method == 'POST': 
+	if request.method == 'POST':
 		movieName = request.form['movieTitle']
 		movieYear = request.form['movieYear']
 		is_tv = request.form['is_tv']
@@ -112,13 +127,14 @@ def search():
 		tuples = searchMovieDB(searchMovie)
 		print tuples
 		if tuples:
-		#return render_template("search.html", movieID=tuples[0], name=tuples[1], year=tuples[2])#result=tuples)
-			return render_template("search.html", tuples = tuples)
+			#return render_template("search.html", movieID=tuples[0], name=tuples[1], year=tuples[2])#result=tuples)
+			return render_template("search.html", tuples=tuples)
 		else:
-    			return render_template("search.html", tuples = None)
+    			return render_template("search.html", tuples=None)
 	else:
 		#return render_template("search.html", movieID="", name="", year="")
-		return render_template("search.html", tuples = tuples)
+		return render_template("search.html", tuples=tuples)
+
 
 @app.route("/delete", methods=['POST'])
 def delete():
@@ -129,7 +145,8 @@ def delete():
 	else:
 		return render_template('search.html')
 
-@app.route("/update", methods=['POST','GET'])
+
+@app.route("/update", methods=['POST', 'GET'])
 def update():
     	tuples = []
 	if request.method == 'POST':
@@ -138,13 +155,22 @@ def update():
 		#userRating = request.form['userRating']
 		#rating = updateMovieRating(movieID, userRating)
 		tuples = searchMovieDB(searchMovie)
-		return render_template("update.html", tuples=tuples, movieID=None)
+		return render_template("update.html", tuples=tuples)
 	else:
-		return render_template("update.html", tuples=None, movieID=None)
-		
+		return render_template("update.html", tuples=None)
+
+@app.route("/rate", methods=['POST', 'GET'])
+def rate():
+    	tuples = []
+	if request.method == 'POST':
+		#movieID = request.form['movieID']
+		#userRating = request.form['userRating']
+		#rating = updateMovieRating(movieID, userRating)
+		#tuples = searchMovieDB(searchMovie)
+		return render_template("rate.html", movieID=None)
+	else:
+		return render_template("rate.html", movieID=None)
+
 
 if __name__ == "__main__":
-	app.run(host='dsg1.crc.nd.edu',port=5202,debug=True)
-
-
-
+	app.run(host='dsg1.crc.nd.edu', port=5202, debug=True)
