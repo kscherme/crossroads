@@ -12,26 +12,24 @@
 		<p>Search by Movie Title: <input type="text" name= "movieSearch" /></p>
 		<p><input type = "submit" value = "SEARCH" /></p>
 	</form>
-	<tr>
-		{% if tuples %}
-			{% for row in tuples %}
-				<td>{{row[0]}}</td>
-				<td>{{row[1]}}</td> 
-				<td>{{row[2]}}</td>
-				<td>{{row[3]}}</td>
-				<br>			
-			{% endfor %}
-		{% else %}
-			<td>No movies found!</td><br>
-		{% endif %}
-	</tr>
-	<!-- <p>Movie: {{ name }}</p>
-        <p>MovieID: {{ movieID }}</p>
-        <p>Year: {{ year }}</p> -->
-	<!-- <form action="/delete" method="post">
-		<input type="hidden" name="movieID" value=movieID>
-		<p><input type = "submit" value = "DELETE" /></p>
-	</form>  -->
+	<table>
+		<tr>
+			<th>Movie ID</th>
+			<th>Movie Title</th>
+			<th>Year</th>
+		</tr>
+		<tr>
+			{% if tuples %}
+				{% for row in tuples %}
+					<td>{{row[0]}}</td>
+					<td>{{row[1]}}</td> 
+					<td>{{row[2]}}</td>
+				{% endfor %}
+			{% else %}
+				<td>No movies found!</td><br>
+			{% endif %}
+		</tr>
+	</table>
 	<a href="{{ url_for('homepage') }}" class="button1">Back</a>
 </body>
 </html>
