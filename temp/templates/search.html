@@ -18,18 +18,18 @@
 			<th>Movie Title</th>
 			<th>Year</th>
 		</tr>
-		<tr>
-			{% if tuples %}
-				{% for row in tuples %}
+		{% if tuples %}
+			{% for row in tuples %}
+				<tr>
 					<td>{{row[0]}}</td>
 					<td>{{row[1]}}</td> 
 					<td>{{row[2]}}</td>
-					<br>
-				{% endfor %}
-			{% else %}
-				<td>No movies found!</td><br>
-			{% endif %}
-		</tr>
+				</tr>
+			{% endfor %}
+		{% else %}
+			<td>No movies found!</td><br>
+		{% endif %}
+
 	</table>
 	<a href="{{ url_for('homepage') }}" class="button1">Back</a>
 </body>
