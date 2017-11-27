@@ -170,4 +170,4 @@ def rate(movieID=None):
 
 
 if __name__ == "__main__":
-	app.run(host='dsg1.crc.nd.edu', port=5200, debug=True)
+	app.run(host='0.0.0.0', port=5200, debug=True)
