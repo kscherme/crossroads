@@ -11,17 +11,24 @@
         <form action="/update" method="post">
 		<p>Search by Movie Title: <input type="text" name= "movieSearch" /></p>
 		<p><input type = "submit" value = "SEARCH" /></p>
-	</form>
-        <tr>
+        </form>
+        <table>
+		<tr>
+			<th>Movie Title</th>
+			<th>Year</th>
+                </tr>
                 {% if tuples %}
                         {% for row in tuples %}
-                                <a href="{{ url_for('rate', movieID = row[0]) }}">{{ row[1] }}</a>
-                                <br>			
+                        <tr>
+                                <td><a href="{{ url_for('rate', movieID = row[0]) }}">{{ row[1] }}</a></td>
+                                <td>{{ row[2] }}</td>                              
+                        </tr>			
                         {% endfor %}
                 {% else %}
                         <td>No movies found!</td><br>
                 {% endif %}
-        </tr>
+        </table>
+
         <!-- <form action="/update" method="post">
                 <p>MovieID: <input type="text" name="movieID"</p>
                 <p>Rating: <input type="text" name="userRating"</p>

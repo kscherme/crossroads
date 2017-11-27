@@ -11,8 +11,8 @@
 	<form action="/insert" method="post">
 		<p>Movie Title to Insert: <input type = "text" name = "movieTitle" /></p>
 		<p>Movie Year: <input type = "text" name = "movieYear" /></p>
-		<input type="radio" name="is_tv" value="0" checked> Movie
-		<input type="radio" name="is_tv" value="1"> TV
+		<input type="radio" name="is_tv" value="1" checked> Movie
+		<input type="radio" name="is_tv" value="0"> TV
 		<p><input type = "submit" value = "INSERT" /></p>
 	</form>
 		<p>Inserted Movie: {{ name }}</p>

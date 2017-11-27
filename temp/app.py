@@ -38,8 +38,6 @@ def insertMovieDB(year, title, is_tv):
 	return True
 
 # Searches for movie by title
-
-
 def searchMovieDB(title):
     	title = "%" + title + "%"
 	# Format SQL
@@ -51,25 +49,17 @@ def searchMovieDB(title):
 	tuples = cursor.fetchall()
 	# Return results
 	return tuples
-	# if tuples:
-	# 	return (int(tuples[0][0]), tuples[0][1], int(tuples[0][2]))
-	# else:
-	# 	return 0
-
-# Deleted movie from database
 
 
-def deleteMovie(movieID):
-	# Format SQL
-	sql = 'DELETE FROM Movies WHERE movieID = {}'.format(movieID)
-	# Execute SQL
-	cursor.execute(sql)
-	db.commit()
-	return True
+# def deleteMovie(movieID):
+# 	# Format SQL
+# 	sql = 'DELETE FROM Movies WHERE movieID = {}'.format(movieID)
+# 	# Execute SQL
+# 	cursor.execute(sql)
+# 	db.commit()
+# 	return True
 
 # Update movie rating
-
-
 def updateMovieRating(movieID, userRating):
 	# Get Current Rating
 	# Also get number of votes
@@ -127,23 +117,21 @@ def search():
 		tuples = searchMovieDB(searchMovie)
 		print tuples
 		if tuples:
-			#return render_template("search.html", movieID=tuples[0], name=tuples[1], year=tuples[2])#result=tuples)
 			return render_template("search.html", tuples=tuples)
 		else:
     			return render_template("search.html", tuples=None)
 	else:
-		#return render_template("search.html", movieID="", name="", year="")
 		return render_template("search.html", tuples=tuples)
 
 
-@app.route("/delete", methods=['POST'])
-def delete():
-	if request.method == 'POST':
-		movieID = request.form['movieID']
-		deleteMovie(movieID)
-		return render_template('search.html')
-	else:
-		return render_template('search.html')
+# @app.route("/delete", methods=['POST'])
+# def delete():
+# 	if request.method == 'POST':
+# 		movieID = request.form['movieID']
+# 		deleteMovie(movieID)
+# 		return render_template('search.html')
+# 	else:
+# 		return render_template('search.html')
 
 
 @app.route("/update", methods=['POST', 'GET'])
