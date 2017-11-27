@@ -67,6 +67,7 @@ def updateMovieRating(movieID, userRating):
 		movieID)
 	cursor.execute(sql)
 	rows = cursor.fetchall()
+	print rows
 	currentRating = rows[0][0]
 	NumVotes = rows[0][1]
 	# Calculate New Rating
@@ -74,6 +75,7 @@ def updateMovieRating(movieID, userRating):
 	SumRatings = SumRatings + int(userRating)
 	NumVotes = NumVotes + 1
 	newRating = SumRatings / NumVotes
+	print newRating
 	# Format SQL
 	sql = 'UPDATE Ratings SET Rating = "{}", numVotes = "{}" WHERE MovieID = "{}"'.format(
 		newRating, NumVotes, movieID)
@@ -108,7 +110,6 @@ def search():
 	if request.method == 'POST':
 		searchMovie = request.form['movieSearch']
 		tuples = searchMovieDB(searchMovie)
-		print tuples
 		if tuples:
 			return render_template("search.html", tuples=tuples)
 		else:
