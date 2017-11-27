@@ -68,21 +68,24 @@ def updateMovieRating(movieID, userRating):
 	cursor.execute(sql)
 	rows = cursor.fetchall()
 	print rows
-	currentRating = rows[0][0]
-	NumVotes = rows[0][1]
-	# Calculate New Rating
-	SumRatings = currentRating * NumVotes
-	SumRatings = SumRatings + int(userRating)
-	NumVotes = NumVotes + 1
-	newRating = SumRatings / NumVotes
-	print newRating
-	# Format SQL
-	sql = 'UPDATE Ratings SET Rating = "{}", numVotes = "{}" WHERE MovieID = "{}"'.format(
-		newRating, NumVotes, movieID)
-	# Execute SQL
-	cursor.execute(sql)
-	db.commit()
-	return newRating
+	if rows:
+		currentRating = rows[0][0]
+		NumVotes = rows[0][1]
+		# Calculate New Rating
+		SumRatings = currentRating * NumVotes
+		SumRatings = SumRatings + int(userRating)
+		NumVotes = NumVotes + 1
+		newRating = SumRatings / NumVotes
+		print newRating
+		# Format SQL
+		sql = 'UPDATE Ratings SET Rating = "{}", numVotes = "{}" WHERE MovieID = "{}"'.format(
+			newRating, NumVotes, movieID)
+		# Execute SQL
+		cursor.execute(sql)
+		db.commit()
+		return newRating
+	else:
+    		return "No MovieID"
 
 # Flask templates
 
