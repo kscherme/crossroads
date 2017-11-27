@@ -9,7 +9,12 @@
         <h1> Welcome to the Crossroads of Film</h1>
         <h5> Currently under construction</h5>
         <form action="/rate/{{ movieID }}" method="post">
-                <p>Rating: <input type="text" name="userRating"</p>
+                <p>Rating: </p>
+                <input type="radio" name="userRating" value="1" checked> 1
+                <input type="radio" name="userRating" value="2"> 2
+                <input type="radio" name="userRating" value="3"> 3
+                <input type="radio" name="userRating" value="4"> 4
+                <input type="radio" name="userRating" value="5"> 5                
                 <p><input type = "submit" value="UPDATE">
         </form>
         <p>MovieID: {{ movieID }}</p>

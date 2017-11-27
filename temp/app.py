@@ -69,18 +69,11 @@ def updateMovieRating(movieID, userRating):
 	rows = cursor.fetchall()
 	currentRating = rows[0][0]
 	NumVotes = rows[0][1]
-	# currentRating, NumVotes = cursor.fetchall()
-	# if currentRating:
-	# 	currentRating = int(currentRating[0])
-	# 	NumVotes = int(NumVotes[0])
-	# else:
-	# 	return 0
 	# Calculate New Rating
 	SumRatings = currentRating * NumVotes
 	SumRatings = SumRatings + int(userRating)
 	NumVotes = NumVotes + 1
 	newRating = SumRatings / NumVotes
-	#newRating = currentRating + 10
 	# Format SQL
 	sql = 'UPDATE Ratings SET Rating = "{}", numVotes = "{}" WHERE MovieID = "{}"'.format(
 		newRating, NumVotes, movieID)
@@ -152,7 +145,7 @@ def rate(movieID=None):
 	if request.method == 'POST':
 		userRating = request.form['userRating']
 		rating = updateMovieRating(movieID, userRating)
-		return render_template("rate.html", movieID=None, rating=rating)
+		return render_template("rate.html", movieID=movieID, rating=rating)
 	else:
 		return render_template("rate.html", movieID=movieID, rating="")
 
