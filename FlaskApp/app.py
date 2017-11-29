@@ -111,7 +111,9 @@ def delete():
 
 @app.route("/update", methods=['POST','GET'])
 def update():
+	print "HERE"
 	if request.method == 'POST':
+		print "sdfs"
 		movieID = request.form['movieID']
 		userRating = request.form['userRating']
 		rating = updateMovieRating(movieID, userRating)
