@@ -104,12 +104,19 @@ def authenticate(input_username, input_password):
 	else:
 		return False
     	
-
+# User Class
+class User(object):
+	def __init__(self, id, username, password):
+			self.id = id
+			self.username = username
+			self.password = password
 # Flask templates
+user = None
 
 @app.route('/')
 def home():
     if not session.get('logged_in'):
+    	print user.username
         return render_template('login.html')
     else:
         return redirect(url_for('homepage'))
@@ -121,6 +128,7 @@ def do_login():
 		username = request.form['username']
 		password = request.form['password']
 		if (authenticate(username, password)):
+    			user = User(username, password)
     			session['logged_in'] = True
 		else:
 			flash('wrong password!')
