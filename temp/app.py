@@ -96,7 +96,10 @@ def authenticate(input_username, input_password):
 	cursor.execute(sql)
 	# Collect Results
 	tuple = cursor.fetchall()
-	result = tuple[0][0]
+	if tuple:
+		result = tuple[0][0]
+	else:
+    		result = False
 	# Return results
 	if result:
 		user.username = input_username
