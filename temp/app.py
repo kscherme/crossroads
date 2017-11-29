@@ -152,7 +152,9 @@ def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
+		print user.id
         return redirect(url_for('homepage'))
+
 @app.route('/adv_search')
 def adv_search():
 	return render_template('adv_search.html')
@@ -211,7 +213,7 @@ def search():
 		else:
     			return render_template("search.html", tuples=None)
 	else:
-		return render_template("search.html", tuples=tuples)
+    		return render_template("search.html", tuples=tuples)
 
 @app.route("/follow", methods=['POST', 'GET'])
 def follow():
