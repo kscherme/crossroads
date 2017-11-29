@@ -1,10 +1,11 @@
 #!/usr/bin python
 
 # Libraries
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, abort
 
 import sys
 import MySQLdb
+import os
 
 # Global Variables
 
@@ -89,8 +90,22 @@ def updateMovieRating(movieID, userRating):
 
 # Flask templates
 
+@app.route('/')
+def home():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return url_for('homepage')
 
-@app.route("/")
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+    if request.form['password'] == 'password' and request.form['username'] == 'admin':
+        session['logged_in'] = True
+    else:
+        flash('wrong password!')
+    return home()
+
+@app.route("/homepage")
 def homepage():
 	return render_template('homepage.html')
 
@@ -155,4 +170,5 @@ def rate(movieID=None):
 
 
 if __name__ == "__main__":
+    app.secret_key = os.urandom(12)
 	app.run(host='0.0.0.0', port=5200, debug=True)
