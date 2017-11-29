@@ -1,7 +1,7 @@
 #!/usr/bin python
 
 # Libraries
-from flask import Flask, render_template, request, redirect, url_for, session, abort, flash, flask_login
+from flask import Flask, render_template, request, redirect, url_for, session, abort, flash
 
 import sys
 import MySQLdb
@@ -87,6 +87,20 @@ def updateMovieRating(movieID, userRating):
 		return newRating
 	else:
     		return "No MovieID"
+
+def authenticate(input_username, input_password):
+	# Format SQL
+	sql = 'SELECT count(*) FROM Users WHERE username = "{}" and password = "{}"'.format(
+		input_username, input_password)
+	# Execute SQL
+	cursor.execute(sql)
+	# Collect Results
+	count = cursor.fetchall()
+	# Return results
+	if count != 0:
+		return True
+	else:
+		return False
     	
 
 # Flask templates
@@ -100,10 +114,14 @@ def home():
 
 @app.route('/login', methods=['POST'])
 def do_login():
-    if request.form['password'] == 'password' and request.form['username'] == 'admin':
-        session['logged_in'] = True
-    else:
-        flash('wrong password!')
+    if request.method == 'POST':
+    #if request.form['password'] == 'password' and request.form['username'] == 'admin':
+		username = request.form['username']
+		password = request.form['password']
+		if (authenticate(username, password)):	
+        	session['logged_in'] = True
+		else:
+			flash('wrong password!')
     return home()
 
 @app.route("/logout")
