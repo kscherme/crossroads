@@ -3,7 +3,6 @@
 
 <head>
 	<title>The Crossroads of Film</title>
-	<link rel="stylesheet" href="../static/css/styles.css">
 </head>
 <body>
 	<h1> Welcome to the Crossroads of Film</h1>
@@ -15,11 +14,11 @@
 		<p><input type = "submit" value = "INSERT" /></p>
 	</form>
 	<form action="/search" method="post">
-		<p>Search by Movie Title: <input type="text" name= "movieSearch" /></p>
+		<p>Search: <input type="text" name= "movieSearch" /></p>
 		<p><input type = "submit" value = "SEARCH" /></p>
 	</form>
 	<form action="/delete" method="post">
-		<p>Delete by Movie ID: <input type="text" name="movieID"</p>
+		<p>Delete: <input type="text" name="movieID"</p>
 		<p><input type = "submit" value="DELETE">
 	</form>
         <form action="/update" method="post">
@@ -27,7 +26,10 @@
                 <p>Rating: <input type="text" name="currentRating"</p>
                 <p><input type = "submit" value="UPDATE">
         </form>
-	<a href="{{ url_for('homepage') }}" class="button1">Back</a>
-
+        <form action="/follow" method="post">
+                <p>Search: <input type="text" name= "userSearch" /></p>
+                <p><input type = "submit" value = "SEARCH" /></p>
+                <p><input type = "submit" value = "SEARCH ALL" /></p>
+        </form>
 </body>
 </html>

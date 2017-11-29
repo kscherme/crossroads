@@ -108,7 +108,37 @@ def authenticate(input_username, input_password):
 		return True
 	else:
 		return False
-    	
+
+def createUser(input_username, input_password):
+	# Format SQL to Check for Other Users
+	sql = 'SELECT * FROM Users WHERE username = "{}"'.format(input_username)
+	#Execute SQL
+        cursor.execute(sql)
+        # Collect Results
+        tuple = cursor.fetchall()
+        if tuple:
+                return False
+
+        # Format SQL to Insert New User
+	sql = 'INSERT INTO Users (username, password) VALUES ("{}", "{}")'.format(input_username, input_password)
+	# Execute SQL
+        cursor.execute(sql)
+        db.commit()
+
+	# Format SQL to Get ID
+	sql = 'Select id FROM Users WHERE username = "{}"'.format(input_username)
+	#Collect Results
+	tuple = cursor.fetchall()
+	id = 0
+        if tuple:
+                id = tuple[0][0]
+	
+	# Set User
+		user.username = input_username
+                user.password = input_password
+		user.id = id
+        return True    	
+
 # User Class
 class User(object):
 	def __init__(self, username, password):
@@ -123,6 +153,9 @@ def home():
         return render_template('login.html')
     else:
         return redirect(url_for('homepage'))
+@app.route('/adv_search')
+def adv_search():
+	return render_template('adv_search.html')
 
 @app.route('/login', methods=['POST'])
 def do_login():
@@ -145,9 +178,15 @@ def logout():
 def homepage():
 	return render_template('homepage.html')
 
-@app.route("/create_user")
+@app.route("/create_user", methods=['POST','GET'])
 def create_user():
-	return render_template('create_user.html')
+    if request.method == 'POST':
+		username = request.form['username']
+                password = request.form['password']
+                if (createUser(username, password)):
+                        return do_login()
+    
+    return render_template('create_user.html')
 
 @app.route("/insert", methods=['POST', 'GET'])
 def insert():
@@ -173,6 +212,15 @@ def search():
     			return render_template("search.html", tuples=None)
 	else:
 		return render_template("search.html", tuples=tuples)
+
+@app.route("/follow", methods=['POST', 'GET'])
+def follow():
+	tuples = ['anna']
+	return render_template("follow.html", tuples=tuples)
+#	tuples = []
+#	if request.method == 'POST':
+		
+		
 
 
 # @app.route("/delete", methods=['POST'])
