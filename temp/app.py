@@ -127,7 +127,8 @@ def do_login():
 		username = request.form['username']
 		password = request.form['password']
 		if (authenticate(username, password)):
-    			user = User(username, password)
+    			user.username = username
+				user.password = password
     			session['logged_in'] = True
 		else:
 			flash('wrong password!')
