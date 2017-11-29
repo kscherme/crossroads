@@ -116,9 +116,9 @@ user = None
 @app.route('/')
 def home():
     if not session.get('logged_in'):
-    	print user.username
         return render_template('login.html')
     else:
+    	print user.username
         return redirect(url_for('homepage'))
 
 @app.route('/login', methods=['POST'])
