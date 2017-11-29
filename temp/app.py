@@ -110,7 +110,7 @@ class User(object):
 			self.username = username
 			self.password = password
 # Flask templates
-user = None
+user = User("","")
 
 @app.route('/')
 def home():
