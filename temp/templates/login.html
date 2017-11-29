@@ -1,35 +1,37 @@
-<link rel="stylesheet" href="../static/css/styles.css">
-{% block body %}
-{% if session['logged_in'] %}
-<p>You're logged in already!</p>
-{% else %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="../static/css/styles.css">
+	<title>The Crossroads of Film</title>
+</head>
+<body>
+    <form action="/login" method="POST">
+        <div class="login">
+            <div class="login-screen">
+                <div class="app-title">
+                    <h1>Login</h1>
+                </div>
+        
+                <div class="login-form">
+                    <div class="control-group">
+                    <input type="text" class="login-field" value="" placeholder="username" name="username">
+                    <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
+        
+                    <div class="control-group">
+                    <input type="password" class="login-field" value="" placeholder="password" name="password">
+                    <label class="login-field-icon fui-lock" for="login-pass"></label>
+                    </div>
+        
+                    <input type="submit" value="Log in" class="small_button small_button-primary small_button-large small_button-block" ><br>
+                    <a href= "{{ url_for('create_user') }}" class="small_button small_button-primary small_button-large small_button-block" >Create User</a>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
  
  
-<form action="/login" method="POST">
-	<div class="login">
-		<div class="login-screen">
-			<div class="app-title">
-				<h1>Login</h1>
-			</div>
- 
-			<div class="login-form">
-				<div class="control-group">
-				<input type="text" class="login-field" value="" placeholder="username" name="username">
-				<label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
- 
-				<div class="control-group">
-				<input type="password" class="login-field" value="" placeholder="password" name="password">
-				<label class="login-field-icon fui-lock" for="login-pass"></label>
-				</div>
- 
-                <input type="submit" value="Log in" class="small_button small_button-primary small_button-large small_button-block" ><br>
-                <a href= "{{ url_for('create_user') }}" class="small_button small_button-primary small_button-large small_button-block" >Create User</a>
-			    <br>
-			</div>
-		</div>
-	</div>
-</form>
- 
-{% endif %}
-{% endblock %}
