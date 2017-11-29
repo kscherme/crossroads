@@ -95,7 +95,7 @@ def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return render_template('homepage.html')
+        return redirect(url_for('homepage'))
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
