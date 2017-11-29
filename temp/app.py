@@ -1,7 +1,7 @@
 #!/usr/bin python
 
 # Libraries
-from flask import Flask, render_template, request, redirect, url_for, session, abort
+from flask import Flask, render_template, request, redirect, url_for, session, abort, flash
 
 import sys
 import MySQLdb
