@@ -153,7 +153,7 @@ def home():
         return render_template('login.html')
     else:
 		print user.id
-        return redirect(url_for('homepage'))
+		return redirect(url_for('homepage'))
 
 @app.route('/adv_search')
 def adv_search():
