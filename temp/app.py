@@ -118,8 +118,8 @@ def do_login():
     #if request.form['password'] == 'password' and request.form['username'] == 'admin':
 		username = request.form['username']
 		password = request.form['password']
-		if (authenticate(username, password)):	
-        	session['logged_in'] = True
+		if (authenticate(username, password)):
+    			session['logged_in'] = True
 		else:
 			flash('wrong password!')
     return home()
