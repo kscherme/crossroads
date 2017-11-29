@@ -96,6 +96,7 @@ def authenticate(input_username, input_password):
 	cursor.execute(sql)
 	# Collect Results
 	count = cursor.fetchall()
+	print count
 	# Return results
 	if count != 0:
 		return True
