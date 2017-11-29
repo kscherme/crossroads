@@ -90,7 +90,7 @@ input:focus {
 	box-shadow: none;
 }
 	
-.btn {
+.small_button {
 	border: 2px solid transparent;
 	background: #f5978e;
 	color: #ffffff;
@@ -107,7 +107,7 @@ input:focus {
 	margin: 0 auto;
 }
 	
-.btn:hover {
+.small_button:hover {
 	background-color: #f5978e;
 }
 	
