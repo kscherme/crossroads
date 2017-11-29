@@ -145,6 +145,9 @@ def logout():
 def homepage():
 	return render_template('homepage.html')
 
+@app.route("/create_user")
+def create_user():
+	return render_template('create_user.html')
 
 @app.route("/insert", methods=['POST', 'GET'])
 def insert():
