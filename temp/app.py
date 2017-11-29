@@ -106,8 +106,7 @@ def authenticate(input_username, input_password):
     	
 # User Class
 class User(object):
-	def __init__(self, id, username, password):
-			self.id = id
+	def __init__(self, username, password):
 			self.username = username
 			self.password = password
 # Flask templates
