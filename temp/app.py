@@ -100,7 +100,7 @@ def authenticate(input_username, input_password):
 	print tuple
 	# Return results
 	if result:
-    	user.username = input_username
+		user.username = input_username
 		user.password = input_password
 		user.id = result
 		print user.id
