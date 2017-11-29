@@ -3,6 +3,7 @@
 # Libraries
 from flask import Flask, render_template, request, redirect, url_for, session, abort, flash
 
+import flask_login
 import sys
 import MySQLdb
 import os
@@ -87,6 +88,7 @@ def updateMovieRating(movieID, userRating):
 		return newRating
 	else:
     		return "No MovieID"
+    	
 
 # Flask templates
 
@@ -98,7 +100,7 @@ def home():
         return redirect(url_for('homepage'))
 
 @app.route('/login', methods=['POST'])
-def do_admin_login():
+def do_login():
     if request.form['password'] == 'password' and request.form['username'] == 'admin':
         session['logged_in'] = True
     else:
