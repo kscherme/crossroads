@@ -1,11 +1,6 @@
 <link rel="stylesheet" href="../static/css/styles.css">
-{% block body %}
-{% if session['logged_in'] %}
-<p>You're logged in already!</p>
-{% else %}
- 
- 
-<form action="/login" method="POST">
+
+<form action="/create_user" method="POST">
 	<div class="login">
 		<div class="login-screen">
 			<div class="app-title">
@@ -23,13 +18,9 @@
 				<label class="login-field-icon fui-lock" for="login-pass"></label>
 				</div>
  
-                <input type="submit" value="Log in" class="btn btn-primary btn-large btn-block" ><br>
-                <a href= "{{ url_for('create_user') }}" class="btn btn-primary btn-large btn-block" >Create User</a>
+                <input type="submit" value="Create" class="btn btn-primary btn-large btn-block" ><br>
 			    <br>
 			</div>
 		</div>
 	</div>
 </form>
- 
-{% endif %}
-{% endblock %}
