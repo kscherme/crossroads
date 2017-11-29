@@ -97,13 +97,11 @@ def authenticate(input_username, input_password):
 	# Collect Results
 	tuple = cursor.fetchall()
 	result = tuple[0][0]
-	print tuple
 	# Return results
 	if result:
 		user.username = input_username
 		user.password = input_password
 		user.id = result
-		print user.id
 		return True
 	else:
 		return False
@@ -121,7 +119,6 @@ def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-    	print user.username
         return redirect(url_for('homepage'))
 
 @app.route('/login', methods=['POST'])
@@ -131,8 +128,6 @@ def do_login():
 		username = request.form['username']
 		password = request.form['password']
 		if (authenticate(username, password)):
-			# user.username = username
-			# user.password = password
 			session['logged_in'] = True
 		else:
 			flash('wrong password!')
