@@ -90,16 +90,20 @@ def updateMovieRating(movieID, userRating):
 
 def authenticate(input_username, input_password):
 	# Format SQL
-	sql = 'SELECT count(*) FROM Users WHERE username = "{}" and password = "{}"'.format(
+	sql = 'SELECT id, username, password FROM Users WHERE username = "{}" and password = "{}"'.format(
 		input_username, input_password)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
-	count = cursor.fetchall()
-	result = count[0][0]
-	print count
+	tuple = cursor.fetchall()
+	result = tuple[0][0]
+	print tuple
 	# Return results
-	if result != 0:
+	if result:
+    	user.username = input_username
+		user.password = input_password
+		user.id = result
+		print user.id
 		return True
 	else:
 		return False
@@ -127,8 +131,8 @@ def do_login():
 		username = request.form['username']
 		password = request.form['password']
 		if (authenticate(username, password)):
-			user.username = username
-			user.password = password
+			# user.username = username
+			# user.password = password
 			session['logged_in'] = True
 		else:
 			flash('wrong password!')
