@@ -27,12 +27,9 @@ cursor = db.cursor()
 # Functions
 
 # Inserts a new movie into the database
-
-
 def insertMovieDB(year, title, is_tv):
 	# Format SQL
-	sql = 'INSERT INTO Movies (year, title, is_tv) VALUES ("{}", "{}", "{}")'.format(
-		year, title, is_tv)
+	sql = 'INSERT INTO Movies (year, title, is_tv) VALUES ("{}", "{}", "{}")'.format(year, title, is_tv)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
@@ -53,7 +50,7 @@ def searchMovieDB(title):
 
 def searchUserDB(user):
 	user = "%" + user + "%"
-    # Format SQL
+	# Format SQL
     if user is not "%%":
     	sql = 'SELECT * FROM Users WHERE username LIKE "{}"'.format(user)
     else:
@@ -77,8 +74,7 @@ def searchUserDB(user):
 def updateMovieRating(movieID, userRating):
 	# Get Current Rating
 	# Also get number of votes
-	sql = 'SELECT Rating, numVotes FROM Ratings WHERE MovieID = "{}"'.format(
-		movieID)
+	sql = 'SELECT Rating, numVotes FROM Ratings WHERE MovieID = "{}"'.format(movieID)
 	cursor.execute(sql)
 	rows = cursor.fetchall()
 	print rows
@@ -103,8 +99,7 @@ def updateMovieRating(movieID, userRating):
 
 def authenticate(input_username, input_password):
 	# Format SQL
-	sql = 'SELECT id, username, password FROM Users WHERE username = "{}" and password = "{}"'.format(
-		input_username, input_password)
+	sql = 'SELECT id, username, password FROM Users WHERE username = "{}" and password = "{}"'.format(input_username, input_password)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
@@ -161,10 +156,8 @@ def setFollowingUser(userToFollow):
     tuple = cursor.fetchall()
     if tuple:
     	return False
-
-    	if user.username == userToFollow:
-    		return False
-
+    if user.username == userToFollow:
+    	return False
 	# Format SQL to Set Following
 	sql = 'INSERT INTO Following (Follower, Following) VALUES ("{}", "{}")'.format(user.username, userToFollow)
 	# Execute SQL
@@ -195,14 +188,13 @@ def adv_search():
 @app.route('/login', methods=['POST'])
 def do_login():
 	if request.method == 'POST':
-    #if request.form['password'] == 'password' and request.form['username'] == 'admin':
-    username = request.form['username']
-    password = request.form['password']
-    if (authenticate(username, password)):
-    	session['logged_in'] = True
-    else:
-    	flash('wrong password!')
-    	return home()
+		username = request.form['username']
+		password = request.form['password']
+		if (authenticate(username, password)):
+			session['logged_in'] = True
+		else:
+			flash('wrong password!')
+		return home()
 
 @app.route("/logout")
 def logout():
@@ -221,7 +213,7 @@ def create_user():
 		if (createUser(username, password)):
 			return do_login()
 
-			return render_template('create_user.html')
+		return render_template('create_user.html')
 
 @app.route("/insert", methods=['POST', 'GET'])
 def insert():
@@ -252,9 +244,9 @@ def search():
 def follow():
 	tuples = []
 	if request.method == 'POST':
-	if request.form['submit'] == 'Follow':
-		username =  request.form['username']
-		setFollowingUser(username)
+		if request.form['submit'] == 'Follow':
+			username =  request.form['username']
+			setFollowingUser(username)
 	#return render_template("follow.html", tuples=tuples)
 	#else:
 	if request.form['submit'] == 'SEARCH ALL USERS':
@@ -306,6 +298,6 @@ def rate(movieID=None):
 		return render_template("rate.html", movieID=movieID, rating="")
 
 
-		if __name__ == "__main__":
-			app.secret_key = os.urandom(12)
-			app.run(host='0.0.0.0', port=5200, debug=True)
+if __name__ == "__main__":
+	app.secret_key = os.urandom(12)
+	app.run(host='0.0.0.0', port=5200, debug=True)
