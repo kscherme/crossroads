@@ -152,12 +152,12 @@ def setFollowingUser(userToFollow):
 	sql = 'SELECT * FROM Following WHERE Follower = "{}" and Following = "{}"'.format(user.username, userToFollow)
 	#Execute SQL
 	cursor.execute(sql)
-    # Collect Results
-    tuple = cursor.fetchall()
-    if tuple:
-    	return False
-    if user.username == userToFollow:
-    	return False
+	# Collect Results
+	tuple = cursor.fetchall()
+	if tuple:
+		return False
+	if user.username == userToFollow:
+		return False
 	# Format SQL to Set Following
 	sql = 'INSERT INTO Following (Follower, Following) VALUES ("{}", "{}")'.format(user.username, userToFollow)
 	# Execute SQL
