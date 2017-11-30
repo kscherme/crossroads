@@ -261,8 +261,8 @@ def follow():
 		else:
 			return render_template("follow.html", tuples=None)
 
-		else:
-			return render_template("follow.html", tuples=tuples)		
+	else:
+		return render_template("follow.html", tuples=tuples)		
 
 
 # @app.route("/delete", methods=['POST'])
