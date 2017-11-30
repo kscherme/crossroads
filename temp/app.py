@@ -226,25 +226,28 @@ def insert():
 	else:
 		return render_template("insert.html", name="", year="")
 
-
+@app.route("/search/<searchTerms", methods=['POST', 'GET'])
 @app.route("/search", methods=['POST', 'GET'])
-def search():
+def search(searchTerms = None):
 	tuples = []
+	if (searchTerms != None):
+		tuples = searchMovieDB(searchTerms)
+		return render_template("search.html", tuples=tuples)
 	if request.method == 'POST':
 		if request.form['submit'] == 'Like':
 			mid = request.form['movieID']
 			print mid
 		if request.form['submit'] == 'SEARCH':
-			searchMovie = request.form['movieSearch']
-			tuples = searchMovieDB(searchMovie)
+			searchTerms = request.form['movieSearch']
+			tuples = searchMovieDB(searchTerms)
 
 		if tuples:
-			return render_template("search.html", tuples=tuples)
+			return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
 		else:
-			return render_template("search.html", tuples=None)
+			return render_template("search.html", tuples=None, searchTerms=searchTerms)
 
 	else:
-		return render_template("search.html", tuples=tuples)
+		return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
 
 @app.route("/follow", methods=['POST', 'GET'])
 def follow():
