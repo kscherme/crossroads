@@ -237,8 +237,8 @@ def search():
 			return render_template("search.html", tuples=tuples)
 		else:
 			return render_template("search.html", tuples=None)
-		else:
-			return render_template("search.html", tuples=tuples)
+	else:
+		return render_template("search.html", tuples=tuples)
 
 @app.route("/follow", methods=['POST', 'GET'])
 def follow():
