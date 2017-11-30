@@ -8,11 +8,11 @@
 <body>
         <h1> Welcome to the Crossroads of Film</h1>
         <h5> Currently under construction</h5>
-        <form action="/search" method="post">
+        <form action="/follow" method="post">
                 <p>Search for other users by username: <input type="text" name= "userSearch" /></p>
-                <p><input type = "submit" value = "SEARCH" /></p> 
-		<p><input type = "submit" value = "SEARCH ALL USERS" /></p>
-        </form>
+                <p><input type = "submit" name = "submit" value = "SEARCH" /></p> 
+                <p><input type = "submit" name = "submit" value = "SEARCH ALL USERS" /></p>
+       </form>
         <table>
                 <tr>
                         <th>User</th>
@@ -20,7 +20,10 @@
                 {% if tuples %}
                         {% for row in tuples %}
                                 <tr>
-                                        <td>{{row[0]}}</td>
+					<form action="/follow" method="post">
+						<input type = "hidden" name = "username" value = "{{ row[1] }}">
+						<p>{{row[1]}} <input type = "submit" name = "submit" value = "Follow" /></p>
+					</form>
                                 </tr>
                         {% endfor %}
                 {% else %}

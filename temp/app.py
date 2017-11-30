@@ -51,6 +51,19 @@ def searchMovieDB(title):
 	# Return results
 	return tuples
 
+def searchUserDB(user):
+	user = "%" + user + "%"
+        # Format SQL
+	if user is not "%%":
+        	sql = 'SELECT * FROM Users WHERE username LIKE "{}"'.format(user)
+	else:
+		sql = 'SELECT * FROM Users'
+        # Execute SQL
+        cursor.execute(sql)
+        # Collect Results
+        tuples = cursor.fetchall()
+        # Return results
+        return tuples
 
 # def deleteMovie(movieID):
 # 	# Format SQL
@@ -139,6 +152,26 @@ def createUser(input_username, input_password):
 		user.id = id
         return True    	
 
+def setFollowingUser(userToFollow):
+	# Format SQL to Check if Already Following
+	sql = 'SELECT * FROM Following WHERE Follower = "{}" and Following = "{}"'.format(user.username, userToFollow)
+	#Execute SQL
+        cursor.execute(sql)
+        # Collect Results
+        tuple = cursor.fetchall()
+        if tuple:
+                return False
+
+	if user.username == userToFollow:
+		return False
+ 
+	# Format SQL to Set Following
+	sql = 'INSERT INTO Following (Follower, Following) VALUES ("{}", "{}")'.format(user.username, userToFollow)
+	# Execute SQL
+        cursor.execute(sql)
+        db.commit()
+        return True
+
 # User Class
 class User(object):
 	def __init__(self, username, password):
@@ -217,12 +250,27 @@ def search():
 
 @app.route("/follow", methods=['POST', 'GET'])
 def follow():
-	tuples = ['anna']
-	return render_template("follow.html", tuples=tuples)
-#	tuples = []
-#	if request.method == 'POST':
-		
-		
+	tuples = []
+	if request.method == 'POST':
+		if request.form['submit'] == 'Follow':
+                        username =  request.form['username']
+			setFollowingUser(username)
+			#return render_template("follow.html", tuples=tuples)
+		#else:
+		if request.form['submit'] == 'SEARCH ALL USERS':
+			searchUser = ''
+			tuples = searchUserDB(searchUser)
+		elif request.form['submit'] == 'SEARCH':
+			searchUser = request.form['userSearch']
+			tuples = searchUserDB(searchUser)
+
+               	if tuples:
+                      	return render_template("follow.html", tuples=tuples)
+                else:
+                        return render_template("follow.html", tuples=None)
+
+	else:
+                return render_template("follow.html", tuples=tuples)		
 
 
 # @app.route("/delete", methods=['POST'])

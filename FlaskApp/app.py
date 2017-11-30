@@ -86,6 +86,10 @@ def updateMovieRating(movieID, userRating):
 def index():
 	return render_template('index.html')
 
+@app.route("/adv_search")
+def adv_search():
+	return render_template('adv_search.html')
+
 @app.route("/insert", methods=['POST','GET'])
 def insert():
 	if request.method == 'POST': 
