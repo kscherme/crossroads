@@ -99,7 +99,7 @@ def updateMovieRating(movieID, userRating):
 		db.commit()
 		return newRating
 	else:
-    		return "No MovieID"
+    	return "No MovieID"
 
 def authenticate(input_username, input_password):
 	# Format SQL
@@ -126,41 +126,41 @@ def createUser(input_username, input_password):
 	# Format SQL to Check for Other Users
 	sql = 'SELECT * FROM Users WHERE username = "{}"'.format(input_username)
 	#Execute SQL
-        cursor.execute(sql)
-        # Collect Results
-        tuple = cursor.fetchall()
-        if tuple:
-                return False
+	cursor.execute(sql)
+	# Collect Results
+	tuple = cursor.fetchall()
+	if tuple:
+		return False
 
-        # Format SQL to Insert New User
+	# Format SQL to Insert New User
 	sql = 'INSERT INTO Users (username, password) VALUES ("{}", "{}")'.format(input_username, input_password)
 	# Execute SQL
-        cursor.execute(sql)
-        db.commit()
+	cursor.execute(sql)
+	db.commit()
 
 	# Format SQL to Get ID
 	sql = 'Select id FROM Users WHERE username = "{}"'.format(input_username)
 	#Collect Results
 	tuple = cursor.fetchall()
 	id = 0
-        if tuple:
-                id = tuple[0][0]
+    if tuple:
+    	id = tuple[0][0]
 	
 	# Set User
-		user.username = input_username
-                user.password = input_password
-		user.id = id
-        return True    	
+	user.username = input_username
+	user.password = input_password
+	user.id = id
+    return True    	
 
 def setFollowingUser(userToFollow):
 	# Format SQL to Check if Already Following
 	sql = 'SELECT * FROM Following WHERE Follower = "{}" and Following = "{}"'.format(user.username, userToFollow)
 	#Execute SQL
-        cursor.execute(sql)
-        # Collect Results
-        tuple = cursor.fetchall()
-        if tuple:
-                return False
+    cursor.execute(sql)
+    # Collect Results
+    tuple = cursor.fetchall()
+    if tuple:
+    	return False
 
 	if user.username == userToFollow:
 		return False
@@ -168,9 +168,9 @@ def setFollowingUser(userToFollow):
 	# Format SQL to Set Following
 	sql = 'INSERT INTO Following (Follower, Following) VALUES ("{}", "{}")'.format(user.username, userToFollow)
 	# Execute SQL
-        cursor.execute(sql)
-        db.commit()
-        return True
+    cursor.execute(sql)
+    db.commit()
+    return True
 
 # User Class
 class User(object):
@@ -217,9 +217,9 @@ def homepage():
 def create_user():
     if request.method == 'POST':
 		username = request.form['username']
-                password = request.form['password']
-                if (createUser(username, password)):
-                        return do_login()
+        password = request.form['password']
+        if (createUser(username, password)):
+                return do_login()
     
     return render_template('create_user.html')
 
@@ -237,7 +237,7 @@ def insert():
 
 @app.route("/search", methods=['POST', 'GET'])
 def search():
-    	tuples = []
+    tuples = []
 	if request.method == 'POST':
 		searchMovie = request.form['movieSearch']
 		tuples = searchMovieDB(searchMovie)

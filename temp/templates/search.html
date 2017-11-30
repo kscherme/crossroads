@@ -24,6 +24,11 @@
 					<td>{{row[0]}}</td>
 					<td>{{row[1]}}</td> 
 					<td>{{row[2]}}</td>
+					<td>
+						<form action="/search" method="post">
+							<input type = "submit" name = "submit" value = "Like" />
+						</form>
+					</td>
 				</tr>
 			{% endfor %}
 		{% else %}
