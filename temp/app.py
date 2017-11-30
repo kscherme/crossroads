@@ -51,16 +51,16 @@ def searchMovieDB(title):
 def searchUserDB(user):
 	user = "%" + user + "%"
 	# Format SQL
-    if user is not "%%":
-    	sql = 'SELECT * FROM Users WHERE username LIKE "{}"'.format(user)
-    else:
-    	sql = 'SELECT * FROM Users'
-    # Execute SQL
-    cursor.execute(sql)
-    # Collect Results
-    tuples = cursor.fetchall()
-    # Return results
-    return tuples
+	if user is not "%%":
+		sql = 'SELECT * FROM Users WHERE username LIKE "{}"'.format(user)
+	else:
+		sql = 'SELECT * FROM Users'
+	# Execute SQL
+	cursor.execute(sql)
+	# Collect Results
+	tuples = cursor.fetchall()
+	# Return results
+	return tuples
 
 # def deleteMovie(movieID):
 # 	# Format SQL
