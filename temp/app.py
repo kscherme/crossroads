@@ -251,19 +251,19 @@ def follow():
 		if request.form['submit'] == 'Follow':
 			username =  request.form['username']
 			setFollowingUser(username)
-	#return render_template("follow.html", tuples=tuples)
-	#else:
-	if request.form['submit'] == 'SEARCH ALL USERS':
-		searchUser = ''
-		tuples = searchUserDB(searchUser)
-	elif request.form['submit'] == 'SEARCH':
-		searchUser = request.form['userSearch']
-		tuples = searchUserDB(searchUser)
+		#return render_template("follow.html", tuples=tuples)
+		#else:
+		if request.form['submit'] == 'SEARCH ALL USERS':
+			searchUser = ''
+			tuples = searchUserDB(searchUser)
+		elif request.form['submit'] == 'SEARCH':
+			searchUser = request.form['userSearch']
+			tuples = searchUserDB(searchUser)
 
-		if tuples:
-			return render_template("follow.html", tuples=tuples)
-		else:
-			return render_template("follow.html", tuples=None)
+			if tuples:
+				return render_template("follow.html", tuples=tuples)
+			else:
+				return render_template("follow.html", tuples=None)
 
 	else:
 		return render_template("follow.html", tuples=tuples)		
