@@ -245,8 +245,8 @@ def search(searchTerms = None):
 	else:
 		return render_template("search.html", tuples=None, searchTerms=searchTerms)
 
-	else:
-		return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
+	# else:
+	# 	return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
 
 @app.route("/follow", methods=['POST', 'GET'])
 def follow():
