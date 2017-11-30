@@ -99,7 +99,7 @@ def updateMovieRating(movieID, userRating):
 		db.commit()
 		return newRating
 	else:
-    	return "No MovieID"
+		return "No MovieID"
 
 def authenticate(input_username, input_password):
 	# Format SQL
