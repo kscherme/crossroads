@@ -226,7 +226,7 @@ def insert():
 	else:
 		return render_template("insert.html", name="", year="")
 
-@app.route("/search/<searchTerms", methods=['POST', 'GET'])
+@app.route("/search/<searchTerms>", methods=['POST', 'GET'])
 @app.route("/search", methods=['POST', 'GET'])
 def search(searchTerms = None):
 	tuples = []
