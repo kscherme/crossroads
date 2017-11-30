@@ -165,6 +165,23 @@ def setFollowingUser(userToFollow):
 	db.commit()
 	return True
 
+def setMovieLike(movieID):
+	# Format SQL to Check if Already Liked
+	sql = 'SELECT * FROM UserLikes WHERE user_id = "{}" and movie_id = "{}"'.format(user.id, mid)
+	# Execute SQL
+	cursor.execute(sql)
+	# Collect Results
+	tuple = cursor.fetchall()
+	if tuple:
+		return False
+	# Format SQL to Set Like
+	sql = 'INSERT INTO UserLikes (user_id, movie_id) VALUES ("{}","{}")'.format(user.id, mid)
+	# Execute SQL
+	cursor.execute(sql)
+	db.commit()
+	return True
+
+
 # User Class
 class User(object):
 	def __init__(self, username, password):
@@ -235,6 +252,7 @@ def search(searchTerms = None):
 	if request.method == 'POST':
 		if request.form['submit'] == 'Like':
 			mid = request.form['movieID']
+			setMovieLike(mid)
 			print mid
 		if request.form['submit'] == 'SEARCH':
 			searchTerms = request.form['movieSearch']
