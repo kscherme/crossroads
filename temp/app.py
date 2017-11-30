@@ -230,17 +230,17 @@ def insert():
 @app.route("/search", methods=['POST', 'GET'])
 def search():
 	tuples = []
-	if request.method == 'POST':
-		if request.form['submit'] == 'SEARCH':
-			searchMovie = request.form['movieSearch']
-			tuples = searchMovieDB(searchMovie)
-			if tuples:
-				return render_template("search.html", tuples=tuples)
-			else:
-				return render_template("search.html", tuples=None)
-		if request.form['submit'] == 'Like':
-			mid = request.form['movieID']
-			print mid
+	#if request.method == 'POST':
+	if request.form['submit'] == 'SEARCH':
+		searchMovie = request.form['movieSearch']
+		tuples = searchMovieDB(searchMovie)
+		if tuples:
+			return render_template("search.html", tuples=tuples)
+		else:
+			return render_template("search.html", tuples=None)
+	if request.form['submit'] == 'Like':
+		mid = request.form['movieID']
+		print mid
 	else:
 		return render_template("search.html", tuples=tuples)
 
