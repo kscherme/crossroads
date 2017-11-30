@@ -167,7 +167,7 @@ def setFollowingUser(userToFollow):
 
 def setMovieLike(movieID):
 	# Format SQL to Check if Already Liked
-	sql = 'SELECT * FROM UserLikes WHERE user_id = "{}" and movie_id = "{}"'.format(user.id, mid)
+	sql = 'SELECT * FROM UserLikes WHERE user_id = "{}" and movie_id = "{}"'.format(user.id, movieID)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
@@ -175,7 +175,7 @@ def setMovieLike(movieID):
 	if tuple:
 		return False
 	# Format SQL to Set Like
-	sql = 'INSERT INTO UserLikes (user_id, movie_id) VALUES ("{}","{}")'.format(user.id, mid)
+	sql = 'INSERT INTO UserLikes (user_id, movie_id) VALUES ("{}","{}")'.format(user.id, movieID)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
