@@ -232,7 +232,6 @@ def search(searchTerms = None):
 	tuples = []
 	if (searchTerms != None):
 		tuples = searchMovieDB(searchTerms)
-		return render_template("search.html", tuples=tuples)
 	if request.method == 'POST':
 		if request.form['submit'] == 'Like':
 			mid = request.form['movieID']
@@ -241,10 +240,10 @@ def search(searchTerms = None):
 			searchTerms = request.form['movieSearch']
 			tuples = searchMovieDB(searchTerms)
 
-		if tuples:
-			return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
-		else:
-			return render_template("search.html", tuples=None, searchTerms=searchTerms)
+	if tuples:
+		return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
+	else:
+		return render_template("search.html", tuples=None, searchTerms=searchTerms)
 
 	else:
 		return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
