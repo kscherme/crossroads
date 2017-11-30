@@ -237,6 +237,9 @@ def search():
 			return render_template("search.html", tuples=tuples)
 		else:
 			return render_template("search.html", tuples=None)
+		if request.form['submit'] == 'Like':
+			mid = request.form['movieID']
+			print mid
 	else:
 		return render_template("search.html", tuples=tuples)
 
