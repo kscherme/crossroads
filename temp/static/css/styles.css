@@ -39,6 +39,27 @@
     .large_button { margin-top: 1em; }
 }
 
+.small_button {
+	border: 2px solid transparent;
+	background: #f5978e;
+	color: #ffffff;
+	font-size: 16px;
+	line-height: 25px;
+	padding: 10px 0;
+	text-decoration: none;
+	text-shadow: none;
+	border-radius: 3px;
+	box-shadow: none;
+	transition: 0.25s;
+	display: block;
+	width: 250px;
+	margin: 0 auto;
+}
+	
+.small_button:hover {
+	background-color: #f5978e;
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -61,7 +82,7 @@ body {
 	border-radius: 5px
 }
 	
-.app-title {
+.gray-title {
 	text-align: center;
 	color: #777;
 }
@@ -88,27 +109,6 @@ input {
 input:focus {
 	border: 2px solid #f5978e;
 	box-shadow: none;
-}
-	
-.small_button {
-	border: 2px solid transparent;
-	background: #f5978e;
-	color: #ffffff;
-	font-size: 16px;
-	line-height: 25px;
-	padding: 10px 0;
-	text-decoration: none;
-	text-shadow: none;
-	border-radius: 3px;
-	box-shadow: none;
-	transition: 0.25s;
-	display: block;
-	width: 250px;
-	margin: 0 auto;
-}
-	
-.small_button:hover {
-	background-color: #f5978e;
 }
 	
 .login-link {
