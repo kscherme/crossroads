@@ -186,7 +186,7 @@ def setMovieLike(movieID):
 
 def getRecommendations():
 	# Formal SQL to get Followees' movie likes
-	sql = 'SELECT UserLikes.movie_id, Movies.title, Movies.year FROM UserLikes, Following, Movies WHERE Following.Follower = "{}" and UserLikes.user_id = Following.Following and UserLikes.movie_id = Movies.movieID'.format(user.id)
+	sql = 'SELECT UserLikes.movie_id, Movies.title, Movies.year FROM UserLikes, Following, Movies WHERE Following.Follower = "{}" and UserLikes.user_id = Following.Following and UserLikes.movie_id = Movies.movieID GROUP BY UserLikes.movie_id LIMIT 5'.format(user.id)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
