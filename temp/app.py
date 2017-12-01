@@ -149,17 +149,20 @@ def createUser(input_username, input_password):
 
 def setFollowingUser(userToFollow):
 	# Format SQL to Check if Already Following
-	sql = 'SELECT * FROM Following WHERE Follower = "{}" and Following = "{}"'.format(user.username, userToFollow)
+	# sql = 'SELECT * FROM Following WHERE Follower = "{}" and Following = "{}"'.format(user.username, userToFollow)
+	sql = 'SELECT * FROM Following WHERE Follower = "{}" and Following = "{}"'.format(user.id, userToFollow)
 	#Execute SQL
 	cursor.execute(sql)
 	# Collect Results
 	tuple = cursor.fetchall()
 	if tuple:
 		return False
-	if user.username == userToFollow:
+	# if user.username == userToFollow:
+	if user.id == userToFollow:
 		return False
 	# Format SQL to Set Following
-	sql = 'INSERT INTO Following (Follower, Following) VALUES ("{}", "{}")'.format(user.username, userToFollow)
+	# sql = 'INSERT INTO Following (Follower, Following) VALUES ("{}", "{}")'.format(user.username, userToFollow)
+	sql = 'INSERT INTO Following (Follower, Following) VALUES ("{}", "{}")'.format(user.id, userToFollow)
 	# Execute SQL
 	cursor.execute(sql)
 	db.commit()
@@ -268,8 +271,10 @@ def follow():
 	tuples = []
 	if request.method == 'POST':
 		if request.form['submit'] == 'Follow':
-			username =  request.form['username']
-			setFollowingUser(username)
+			# username =  request.form['username']
+			userID = request.form['userID']
+			# setFollowingUser(username)
+			setFollowingUser(userID)
 		#return render_template("follow.html", tuples=tuples)
 		#else:
 		if request.form['submit'] == 'SEARCH ALL USERS':
