@@ -184,7 +184,7 @@ def setMovieLike(movieID):
 	db.commit()
 	return True
 
-def getReccommendations():
+def getRecommendations():
 	# Formal SQL to get Followees' movie likes
 	sql = 'SELECT * FROM UserLikes, Following WHERE Follower = "{}" and user_id = "{}"'.format(user.id, user.id)
 	# Execute SQL
@@ -304,7 +304,7 @@ def follow():
 @app.route("/get_rec", methods=['GET'])
 def get_rec():
 	tuples = []
-	tuples = get_reccomendations()
+	tuples = getRecommendations()
 	return render_template("get_rec.html", tuples=tuples)	
 
 
