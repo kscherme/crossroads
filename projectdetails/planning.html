@@ -22,20 +22,20 @@
 		<h1>Development Plan</h1>
 		<h2>Relational Schema</h2>
 			<p>Genres(GenreID key, Name)</p>
-			<p>Directors(Name key)</p>
-			<p>Movies(Year, Title, MovieID key)</p>
-			<p>Awards(Name, Category, Organization, AwardID key)</p>
-			<p>Studios(Name key, Size)</p>
-			<p>Ratings(RatingID key, Rating, Source)</p>
-			<p>Actors(Name key, Birthday key)</p>
+			<p>Movies(movieID key, title, year, is_tv, genreID)</p>
+			<p>Ratings(RatingID key, Rating, Source, MovieID foreign key, numVotes)</p>
+			<p>Actors(actorID key, name)</p>
+			<p>AppearsIn(movieID key, actorID key, role)</p>
+			<p>Following(Follower key, Following key)</p>
+			<p>UserLikes(user_id key, movie_id key)</p>
+			<p>Users(id key, username, password)</p>
 		<h2>Databases/Software Platforms</h2>
 			<p>We will be using the default tools on dsg1 for the database of our project.  We are planning to use python and flask for the front-end framework.</p>
 		<h2>Data Location</h2>
-		<p>We are planning to retrieve our data from multiple sources on the web.
+		<p>We are planning to retrieve our data from the following sources:
 			<ul>
 	        	<li>IMBD hosts their data on AWS.</li>
-				<li>Rotten Tomato- We will use a web crawler to pull data off this site.</li>
-	        	<li>Metacritic</li>
+				<li>User data from those using the site</li>
 	        </ul>
 	    </p>
 		<h2>Labor Division</h2>
