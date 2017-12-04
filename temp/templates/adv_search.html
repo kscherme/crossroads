@@ -8,39 +8,53 @@
 <body>
 	<h1>Advanced Search</h1>
 	<form>	
+		<h3>Search by Title</h3>
+		<p>Begins with: <input type="text" name="titleBeginning"/></p>
+		<p>Contains: <input type="text" name="titleContains"/></p>
 		<h3>Search in a Year Range<h5>
 		<p>Beginning Year: <input type="text" name="beginningYear"/></p>
 		<p>Ending Year: <input type="text" name="endingYear"/></p>
 		<h3>Search by Genres</h5>
 		<select name="genre">
+			<option>All</option>
 			<option>Action</option>
 			<option>Adventure</option>
 			<option>Animation</option>
 			<option>Biography</option>
 			<option>Comedy</option>
+			<option>Commercial</option>
 			<option>Crime</option>
 			<option>Documentary</option>
 			<option>Drama</option>
+			<option>Experimental</option>
 			<option>Family</option>
 			<option>Fantasy</option>
 			<option>Film-Noir</option>
+			<option>Game-Show</option>
 			<option>History</option>
 			<option>Horror</option>
+			<option>Lifestyle</option>
 			<option>Music</option>
 			<option>Musical</option>
 			<option>Mystery</option>
+			<option>News</option>
+			<option>Reality-TV</option>
 			<option>Romance</option>
 			<option>Sci-Fi</option>
+			<option>Short</option>
 			<option>Sport</option>
+			<option>Talk-Show</option>
 			<option>Thriller</option>
 			<option>War</option>
 			<option>Western</option>
 		</select>
 		<h3>Search by Actor Name</h3>	
 		<p>Actor Name: <input type="text" name="actor"/></p>
+		<h3>Search by Ratings</h3>
+		<p>(Ratings Scale: 1 - 10)</p>
+		<p>Ratings Greater Than: <input type="text" name="beginningRating"/></p>
+		<p>Ratings Less Than: <input type="text" name="endingRating"/></p>
 		<!--  
-			Ratings
-			Actors
 			Name exact match
 		-->
 		<p><input type="submit"/></p>

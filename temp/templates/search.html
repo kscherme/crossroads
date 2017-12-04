@@ -17,6 +17,7 @@
 			<th>Movie ID</th>
 			<th>Movie Title</th>
 			<th>Year</th>
+			<th>Rating</th>
 		</tr>
 		{% if tuples %}
 			{% for row in tuples %}
@@ -24,6 +25,7 @@
 					<td>{{row[0]}}</td>
 					<td>{{row[1]}}</td> 
 					<td>{{row[2]}}</td>
+					<td>{{row[3]}}</td>
 					<td>
 						<form action="/search/{{ searchTerms }}" method="post">
 							<input type = "hidden" name = "movieID" value = "{{ row[0] }}">

@@ -37,14 +37,24 @@ def insertMovieDB(year, title, is_tv):
 
 # Searches for movie by title
 def searchMovieDB(title):
-	title = "%" + title + "%"
-	# Format SQL
-	sql = 'SELECT movieID, title, year FROM Movies WHERE Title LIKE "{}" and is_tv = 0'.format(
-		title)
+	titleLike = "%" + title + "%"
+	# Format SQL for Exact Match
+	sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m, Ratings r WHERE Title="{}" and is_tv=0'.format(title)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
 	tuples = cursor.fetchall()
+
+	# Format SQL for Partial Match
+	sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m, Ratings r WHERE Title LIKE "{}" and is_tv = 0'.format(
+		titleLike)
+	# Execute SQL
+	cursor.execute(sql)
+	# Collect Results
+	tuplesLike = cursor.fetchall()
+	# Join Results
+	for t in tuplesLike:
+		tuples.append(t)	
 	# Return results
 	return tuples
 
