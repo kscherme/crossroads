@@ -193,6 +193,19 @@ def getRecommendations():
 	tuples = cursor.fetchall()
 	return tuples
 
+def getLikes(userID, username):
+	# Format SQL for Likes
+	sql = 'SELECT title FROM Movies WHERE movieID IN (SELECT movie_id FROM UserLikes WHERE user_id={})'.format(userID)
+	# Execute SQL
+	cursor.execute(sql)
+	# Collect Results
+	tuples = cursor.fetchall()
+	newTuples = []
+	for tuple in tuples:
+		newTuple = (tuple, username)
+		newTuples.append(newTuple)
+
+	return newTuples
 
 # User Class
 class User(object):
@@ -274,6 +287,25 @@ def search(searchTerms = None):
 		return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
 	else:
 		return render_template("search.html", tuples=None, searchTerms=searchTerms)
+
+@app.route("/likes", methods=['GET'])
+def likes():
+	tuples = []
+	tuples = getLikes(user.id, user.username)
+	if tuples:
+		return render_template("likes.html", tuples=tuples)
+	else:
+		return render_template("likes.html", tuples=None)
+
+@app.route("/followLikes/<userID>/<username>", methods=['GET', 'POST'])
+def followLikes(userID=None, username=None):
+	tuples = []
+	tuples = getLikes(userID, username)
+
+        if tuples:
+		return render_template("followLikes.html", tuples=tuples)
+        else:
+		return render_template("followLikes.html", tuples=None)
 
 @app.route("/follow", methods=['POST', 'GET'])
 def follow():
