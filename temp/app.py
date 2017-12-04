@@ -86,7 +86,6 @@ def updateMovieRating(movieID, userRating):
 		SumRatings = SumRatings + int(userRating)
 		NumVotes = NumVotes + 1
 		newRating = SumRatings / NumVotes
-		print newRating
 		# Format SQL
 		sql = 'UPDATE Ratings SET Rating = "{}", numVotes = "{}" WHERE MovieID = "{}"'.format(
 			newRating, NumVotes, movieID)
@@ -95,7 +94,10 @@ def updateMovieRating(movieID, userRating):
 		db.commit()
 		return newRating
 	else:
-		return "No MovieID"
+		sql = 'INSERT INTO Ratings (Source, MovieID, Rating, numVotes) VALUES ("{}","{}","{}","{}")'.format("User", movieID, userRating, 1)
+		cursor.execute(sql)
+		db.commit()
+		return userRating
 
 def authenticate(input_username, input_password):
 	# Format SQL
