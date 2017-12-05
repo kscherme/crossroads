@@ -219,6 +219,11 @@ def getLikes(userID, username):
 
 	return newTuples
 
+def getAdvSearchResults(titleBeginning, titleContains, beginningYear, endingYear, \
+			genre, actor, beginningRating, endingRating):
+	# Format SQL
+	pass
+
 # User Class
 class User(object):
 	def __init__(self, username, password):
