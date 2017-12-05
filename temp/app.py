@@ -63,7 +63,7 @@ def advSearchMovieDB(titleBeginning, titleContains, beginningYear, endingYear, \
 def getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, \
 			genre, actor, beginningRating, endingRating):
 	### Format inputs into SQL
-
+	print hi
 	# Title
 	titleClause = ''
 	if titleBeginning != '':
