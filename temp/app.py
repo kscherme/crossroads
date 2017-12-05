@@ -56,7 +56,7 @@ def advSearchMovieDB(titleBeginning, titleContains, beginningYear, endingYear, \
 	cursor.execute(sql)
 	tuples = cursor.fetchall()
 	for t in tuples:
-		print(t)
+		print t
 	return tuples
 	
 
