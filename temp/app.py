@@ -63,43 +63,41 @@ def advSearchMovieDB(titleBeginning, titleContains, beginningYear, endingYear, \
 def getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, \
 			genre, actor, beginningRating, endingRating):
 	### Format inputs into SQL
-	print 'hi'
 	# Title
 	titleClause = ''
 	if titleBeginning != '':
-		titleClause += 'm.title LIKE \'{}%\' AND '.format(titleBeginning)
+		titleClause += 'AND m.title LIKE \'{}%\' '.format(titleBeginning)
 	if titleContains != '':
-		titleClause += 'm.title LIKE \'%{}%\' AND '.format(titleContains)
+		titleClause += 'AND m.title LIKE \'%{}%\' '.format(titleContains)
 	
 	# Year Range
 	
 	yearClause = ''
 	if beginningYear != '':
-		yearClause += 'm.year > {} AND '.format(beginningYear) 
+		yearClause += 'AND m.year > {} '.format(beginningYear) 
 	if endingYear != '':
-		yearClause += 'm.year < {} AND '.format(endingYear)	
+		yearClause += 'AND m.year < {} '.format(endingYear)	
 
 	# Genre
 	genreClause = ''
 	if genre != 'All' and genre != '':
-		genreClause = 'g.genre=\'' + genre + '\' AND '
+		genreClause = 'AND g.genre=\'' + genre + '\' '
 	
 	# Actor
 	actorClause = ''
 	if actor != '':	
-		actorClause += 'a.name LIKE \'%{}%\' AND a.actorID=ai.actorID AND '.format(actor)
+		actorClause += 'AND a.name LIKE \'%{}%\' AND a.actorID=ai.actorID '.format(actor)
 	
 	# Rating
 	ratingClause = ''
 	if beginningRating != '':
-		ratingClause += 'r.rating >= {}'.format(beginningRating)
-		if endingRating != '':
-			ratingClause += ' AND '			
+		ratingClause += 'AND r.rating >= {} '.format(beginningRating)
+		# if endingRating != '':
+		# 	ratingClause += ' AND '			
 
 	if endingRating != '':
-		ratingClause += 'rating <= {}'.format(endingRating)
+		ratingClause += 'AND rating <= {} '.format(endingRating)
 	
-	print 'hello'
 		
 	sql = 	'''	
 			SELECT 	m.movieID, m.title, m.year, r.Rating
