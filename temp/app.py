@@ -48,6 +48,73 @@ def searchMovieDB(title):
 	tuples = cursor.fetchall()
 	return tuples
 
+def advSearchMovieDB(titleBeginning, titleContains, beginningYear, endingYear, \
+			genre, actor, beginningRating, endingRating):
+
+	sql = getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, \
+			genre, actor, beginningRating, endingRating)
+	cursor.execute(sql)
+	tuples = cursor.fetchall()
+	for t in tuples:
+		print(t)
+	return tuples
+	
+
+def getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, \
+			genre, actor, beginningRating, endingRating):
+	### Format inputs into SQL
+
+	# Title
+	titleClause = ''
+	if titleBeginning != '':
+		titleClause += 'm.title LIKE \'{}%\' AND '.format(titleBeginning)
+	if titleContains != '':
+		titleClause += 'm.title LIKE \'%{}%\' AND '.format(titleContains)
+	
+	# Year Range
+	
+	yearClause = ''
+	if beginningYear != '':
+		yearClause += 'm.year > {} AND '.format(beginningYear) 
+	if endingYear != '':
+		yearClause += 'm.year < {} AND '.format(endingYear)	
+
+	# Genre
+	genreClause = ''
+	if genre != 'All' and genre != '':
+		genreClause = 'g.genre=\'' + genre + '\' AND '
+	
+	# Actor
+	actorClause = ''
+	if actor != '':	
+		actorClause += 'a.name LIKE \'%{}%\' AND a.actorID=ai.actorID AND '.format(actor)
+	
+	# Rating
+	ratingClause = ''
+	if beginningRating != '':
+		ratingClause += 'r.rating >= {}'.format(beginningRating)
+		if endingRating != '':
+			ratingClause += ' AND '			
+
+	if endingRating != '':
+		ratingClause += 'rating <= {}'.format(endingRating)
+	
+
+		
+	sql = 	'''	
+			SELECT 	m.movieID, m.title, m.year, r.Rating
+	       		FROM 	Movies m, Ratings r, Genres g, Actors a, AppearsIn ai
+	       		WHERE 	m.movieID=g.movieID AND 
+	       			m.movieID=r.MovieID AND
+				m.movieID=ai.movieID AND
+		     		{}
+		     		{}
+		     		{}
+		     		{}
+		     		{}'''.format(titleClause, yearClause, genreClause, actorClause, ratingClause) 
+	return sql
+	
+
 # Searches for movie by title
 def searchMovieDBRate(title):
 	titleLike = "%" + title + "%"
@@ -236,9 +303,23 @@ def home():
 		print user.id
 		return redirect(url_for('homepage'))
 
-@app.route('/adv_search')
+@app.route('/adv_search', methods=['GET', 'POST'])
 def adv_search():
-	return render_template('adv_search.html')
+	tuples = []
+	if request.method == 'POST':
+		if request.form['submit'] == 'SEARCH':
+			titleBeginning = request.form['titleBeginning']
+			titleContains = request.form['titleContains']
+			beginningYear = request.form['beginningYear']
+			endingYear = request.form['endingYear']
+			genre = request.form['genre']
+			actor = request.form['actor']
+			beginningRating = request.form['beginningRating']
+			endingRating = request.form['endingRating']
+			tuples = advSearchMovieDB(titleBeginning, titleContains, beginningYear, endingYear,\
+						  genre, actor, beginningRating, endingRating)		
+
+	return render_template('adv_search.html', tuples=tuples)
 
 @app.route('/login', methods=['POST'])
 def do_login():
