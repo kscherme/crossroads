@@ -111,7 +111,8 @@ def getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, 
 		     		{}
 		     		{}
 		     		{}
-		     		{};'''.format(titleClause, yearClause, genreClause, actorClause, ratingClause) 
+		     		{};'''.format(titleClause, yearClause, genreClause, actorClause, ratingClause)
+	print sql 
 	return sql
 	
 
