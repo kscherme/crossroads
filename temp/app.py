@@ -46,7 +46,7 @@ def searchMovieDB(title):
 	# tuples = cursor.fetchall()
 
 	# Format SQL for Partial Match
-	sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m, Ratings r WHERE Title LIKE "{}" and is_tv = 0 and r.MovieID=m.movieID GROUP BY r.Rating DESC'.format(
+	sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m, Ratings r WHERE Title LIKE "{}" and r.MovieID=m.movieID GROUP BY r.Rating DESC'.format(
 		titleLike)
 	# Execute SQL
 	cursor.execute(sql)
