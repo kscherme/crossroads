@@ -38,12 +38,6 @@ def insertMovieDB(year, title, is_tv):
 # Searches for movie by title
 def searchMovieDB(title):
 	titleLike = "%" + title + "%"
-	# Format SQL for Exact Match
-	# sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m, Ratings r WHERE Title="{}" and is_tv=0 and r.MovieID=m.movieID'.format(title)
-	# # Execute SQL
-	# cursor.execute(sql)
-	# # Collect Results
-	# tuples = cursor.fetchall()
 
 	# Format SQL for Partial Match
 	sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m LEFT JOIN Ratings r ON r.MovieID=m.movieID WHERE Title LIKE "{}" GROUP BY r.Rating DESC'.format(
@@ -52,21 +46,11 @@ def searchMovieDB(title):
 	cursor.execute(sql)
 	# Collect Results
 	tuples = cursor.fetchall()
-	# # Join Results
-	# for t in tuplesLike:
-	# 	tuples.append(t)	
-	# Return results
 	return tuples
 
 # Searches for movie by title
 def searchMovieDBRate(title):
 	titleLike = "%" + title + "%"
-	# Format SQL for Exact Match
-	# sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m, Ratings r WHERE Title="{}" and is_tv=0 and r.MovieID=m.movieID'.format(title)
-	# # Execute SQL
-	# cursor.execute(sql)
-	# # Collect Results
-	# tuples = cursor.fetchall()
 
 	# Format SQL for Partial Match
 	sql = 'SELECT m.movieID, m.title, m.year FROM Movies m WHERE Title LIKE "{}"'.format(
@@ -75,10 +59,6 @@ def searchMovieDBRate(title):
 	cursor.execute(sql)
 	# Collect Results
 	tuples = cursor.fetchall()
-	# # Join Results
-	# for t in tuplesLike:
-	# 	tuples.append(t)	
-	# Return results
 	return tuples
 
 def searchUserDB(user):
@@ -94,14 +74,6 @@ def searchUserDB(user):
 	tuples = cursor.fetchall()
 	# Return results
 	return tuples
-
-# def deleteMovie(movieID):
-# 	# Format SQL
-# 	sql = 'DELETE FROM Movies WHERE movieID = {}'.format(movieID)
-# 	# Execute SQL
-# 	cursor.execute(sql)
-# 	db.commit()
-# 	return True
 
 # Update movie rating
 def updateMovieRating(movieID, userRating):
@@ -184,7 +156,6 @@ def createUser(input_username, input_password):
 
 def setFollowingUser(userToFollow):
 	# Format SQL to Check if Already Following
-	# sql = 'SELECT * FROM Following WHERE Follower = "{}" and Following = "{}"'.format(user.username, userToFollow)
 	sql = 'SELECT * FROM Following WHERE Follower = "{}" and Following = "{}"'.format(user.id, userToFollow)
 	#Execute SQL
 	cursor.execute(sql)
@@ -196,7 +167,6 @@ def setFollowingUser(userToFollow):
 	if user.id == userToFollow:
 		return False
 	# Format SQL to Set Following
-	# sql = 'INSERT INTO Following (Follower, Following) VALUES ("{}", "{}")'.format(user.username, userToFollow)
 	sql = 'INSERT INTO Following (Follower, Following) VALUES ("{}", "{}")'.format(user.id, userToFollow)
 	# Execute SQL
 	cursor.execute(sql)
@@ -252,8 +222,11 @@ class User(object):
 	def __init__(self, username, password):
 		self.username = username
 		self.password = password
-# Flask templates
+
+# Initialize user
 user = User("","")
+
+# Flask templates
 
 @app.route('/')
 def home():
@@ -352,12 +325,8 @@ def follow():
 	tuples = []
 	if request.method == 'POST':
 		if request.form['submit'] == 'Follow':
-			# username =  request.form['username']
 			userID = request.form['userID']
-			# setFollowingUser(username)
 			setFollowingUser(userID)
-		#return render_template("follow.html", tuples=tuples)
-		#else:
 		if request.form['submit'] == 'SEARCH ALL USERS':
 			searchUser = ''
 			tuples = searchUserDB(searchUser)
@@ -379,38 +348,24 @@ def get_rec():
 	tuples = getRecommendations()
 	return render_template("get_rec.html", tuples=tuples)	
 
-
-# @app.route("/delete", methods=['POST'])
-# def delete():
-# 	if request.method == 'POST':
-# 		movieID = request.form['movieID']
-# 		deleteMovie(movieID)
-# 		return render_template('search.html')
-# 	else:
-# 		return render_template('search.html')
-
-
 @app.route("/update", methods=['POST', 'GET'])
 def update():
 	tuples = []
 	if request.method == 'POST':
 		searchMovie = request.form['movieSearch']
-		#movieID = request.form['movieID']
-		#userRating = request.form['userRating']
-		#rating = updateMovieRating(movieID, userRating)
-		tuples = searchMovieDBRate(searchMovie)
+		tuples = searchMovieDB(searchMovie)
 		return render_template("update.html", tuples=tuples)
 	else:
 		return render_template("update.html", tuples=None)
 
 @app.route("/rate/<movieID>", methods=['POST', 'GET'])
-def rate(movieID=None):
+def rate(movieID=None, movieName=None):
 	if request.method == 'POST':
 		userRating = request.form['userRating']
 		rating = updateMovieRating(movieID, userRating)
-		return render_template("rate.html", movieID=movieID, rating=rating)
+		return render_template("rate.html", movieID=movieID, rating=rating, movieName=movieName)
 	else:
-		return render_template("rate.html", movieID=movieID, rating="")
+		return render_template("rate.html", movieID=movieID, rating="", movieName=movieName)
 
 
 if __name__ == "__main__":
