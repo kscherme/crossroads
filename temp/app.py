@@ -46,7 +46,30 @@ def searchMovieDB(title):
 	# tuples = cursor.fetchall()
 
 	# Format SQL for Partial Match
-	sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m, Ratings r WHERE Title LIKE "{}" and r.MovieID=m.movieID GROUP BY r.Rating DESC'.format(
+	sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m JOIN Ratings r ON r.MovieID=m.movieID WHERE Title LIKE "{}" GROUP BY r.Rating DESC'.format(
+		titleLike)
+	# Execute SQL
+	cursor.execute(sql)
+	# Collect Results
+	tuples = cursor.fetchall()
+	# # Join Results
+	# for t in tuplesLike:
+	# 	tuples.append(t)	
+	# Return results
+	return tuples
+
+# Searches for movie by title
+def searchMovieDBRate(title):
+	titleLike = "%" + title + "%"
+	# Format SQL for Exact Match
+	# sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m, Ratings r WHERE Title="{}" and is_tv=0 and r.MovieID=m.movieID'.format(title)
+	# # Execute SQL
+	# cursor.execute(sql)
+	# # Collect Results
+	# tuples = cursor.fetchall()
+
+	# Format SQL for Partial Match
+	sql = 'SELECT m.movieID, m.title, m.year FROM Movies m WHERE Title LIKE "{}"'.format(
 		titleLike)
 	# Execute SQL
 	cursor.execute(sql)
@@ -375,7 +398,7 @@ def update():
 		#movieID = request.form['movieID']
 		#userRating = request.form['userRating']
 		#rating = updateMovieRating(movieID, userRating)
-		tuples = searchMovieDB(searchMovie)
+		tuples = searchMovieDBRate(searchMovie)
 		return render_template("update.html", tuples=tuples)
 	else:
 		return render_template("update.html", tuples=None)
