@@ -358,7 +358,7 @@ def update():
 	else:
 		return render_template("update.html", tuples=None)
 
-@app.route("/rate/<movieID>", methods=['POST', 'GET'])
+@app.route("/rate/<movieID>/<movieName>", methods=['POST', 'GET'])
 def rate(movieID=None, movieName=None):
 	if request.method == 'POST':
 		userRating = request.form['userRating']
