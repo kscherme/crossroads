@@ -102,14 +102,7 @@ def getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, 
 	sql = 	'''	
 			SELECT 	m.movieID, m.title, m.year, r.Rating
 	       		FROM 	Movies m, Ratings r, Genres g, Actors a, AppearsIn ai
-	       		WHERE 	m.movieID=g.movieID AND 
-	       			m.movieID=r.MovieID AND
-				m.movieID=ai.movieID AND
-		     		{}
-		     		{}
-		     		{}
-		     		{}
-		     		{};'''.format(titleClause, yearClause, genreClause, actorClause, ratingClause)
+	       		WHERE 	m.movieID=g.movieID AND m.movieID=r.MovieID AND m.movieID=ai.movieID AND {}{}{}{}{};'''.format(titleClause, yearClause, genreClause, actorClause, ratingClause)
 	print sql 
 	return sql
 	
