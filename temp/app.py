@@ -43,9 +43,12 @@ def searchMovieDB(title):
 	sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m LEFT JOIN Ratings r ON r.MovieID=m.movieID WHERE Title LIKE "{}" ORDER BY r.Rating DESC'.format(
 		titleLike)
 	# Execute SQL
+	print "Before"
 	cursor.execute(sql)
+	print "After"
 	# Collect Results
 	tuples = cursor.fetchall()
+	print "Done"
 	return tuples
 
 def advSearchMovieDB(titleBeginning, titleContains, beginningYear, endingYear, \
@@ -101,8 +104,8 @@ def getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, 
 		
 	sql = 	'''	
 			SELECT 	m.movieID, m.title, m.year, r.Rating
-	       		FROM 	Movies m, Ratings r, Genres g, Actors a, AppearsIn ai
-	       		WHERE 	m.movieID=g.movieID AND m.movieID=r.MovieID AND m.movieID=ai.movieID {}{}{}{}{};'''.format(titleClause, yearClause, genreClause, actorClause, ratingClause)
+	       		FROM 	Movies m, Ratings r, Actors a, AppearsIn ai
+	       		WHERE 	m.movieID=r.MovieID AND m.movieID=ai.movieID {}{}{}{};'''.format(titleClause, yearClause, actorClause, ratingClause)
 	print sql 
 	return sql
 	
@@ -341,7 +344,7 @@ def create_user():
 		if (createUser(username, password)):
 			return do_login()
 
-		return render_template('create_user.html')
+	return render_template('create_user.html')
 
 @app.route("/insert", methods=['POST', 'GET'])
 def insert():
@@ -357,18 +360,23 @@ def insert():
 @app.route("/search/<searchTerms>", methods=['POST', 'GET'])
 @app.route("/search", methods=['POST', 'GET'])
 def search(searchTerms = None):
+	print "Start"
 	tuples = []
 	if (searchTerms != None):
 		tuples = searchMovieDB(searchTerms)
+	print request.method, request.form
 	if request.method == 'POST':
 		if request.form['submit'] == 'Like':
 			mid = request.form['movieID']
+			print "Here"
 			setMovieLike(mid)
-			print mid
+			print mid, 'df'
 		if request.form['submit'] == 'SEARCH':
 			searchTerms = request.form['movieSearch']
+			print "There"
 			tuples = searchMovieDB(searchTerms)
-
+			print 'dfd'
+	print "Done"
 	if tuples:
 		return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
 	else:
