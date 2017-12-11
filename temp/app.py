@@ -381,7 +381,7 @@ def search(searchTerms = None):
 	else:
 		return render_template("search.html", tuples=None, searchTerms=searchTerms)
 
-@app.route("/likes", methods=['GET'])
+@app.route("/likes", methods=['GET', 'POST'])
 def likes():
 	tuples = []
 	tuples = getLikes(user.id, user.username)
