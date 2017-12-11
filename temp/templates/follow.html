@@ -2,37 +2,36 @@
 <html lang="en">
 
 <head>
-        <title>The Crossroads of Film</title>
-        <link rel="stylesheet" href="../static/css/styles.css">
+    <title>The Crossroads of Film</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
 </head>
 <body>
-        <h1> Welcome to the Crossroads of Film</h1>
-        <form action="/follow" method="post">
-                <p>Search for other users by username: <input type="text" name= "userSearch" /></p>
-                <p><input type = "submit" name = "submit" value = "SEARCH" /></p> 
-                <p><input type = "submit" name = "submit" value = "SEARCH ALL USERS" /></p>
-       </form>
-        <table>
+    <h1> Welcome to the Crossroads of Film</h1>
+    <form action="/follow" method="post">
+        <p>Search for other users by username: <input type="text" name= "userSearch" /></p>
+        <p><input type = "submit" name = "submit" value = "SEARCH" /></p> 
+        <p><input type = "submit" name = "submit" value = "SEARCH ALL USERS" /></p>
+    </form>
+    <table>
+        <tr>
+            <th>User</th>
+        </tr>
+        {% if tuples %}
+            {% for row in tuples %}
                 <tr>
-                        <th>User</th>
-                </tr>
-                {% if tuples %}
-                        {% for row in tuples %}
-                                <tr>
-       				<form action="/follow" method="post">
-<!-- 						<input type = "hidden" name = "username" value = "{{ row[1] }}"> -->
+                    <form action="/follow" method="post">
                         <input type = "hidden" name = "userID" value = "{{ row[0] }}">
-						<p><a href="{{ url_for('followLikes', userID = row[0], username = row[1]) }}">{{row[1]}}</a> 
-						 <input type = "submit" name = "submit" value = "Follow" /></p>
-					</form>
-                                </tr>
-                        {% endfor %}
-                {% else %}
-                        <td>No users found!</td><br>
-                {% endif %}
+                        <p><a href="{{ url_for('followLikes', userID = row[0], username = row[1]) }}">{{row[1]}}</a> 
+                        <input type = "submit" name = "submit" value = "Follow" /></p>
+                    </form>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <td>No users found!</td><br>
+        {% endif %}
 
-        </table>
-        <a href="{{ url_for('homepage') }}" class="large_button">Back</a>
+    </table>
+    <a href="{{ url_for('homepage') }}" class="large_button">Back</a>
 </body>
 </html>
 
