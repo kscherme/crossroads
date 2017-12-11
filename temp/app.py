@@ -250,8 +250,12 @@ def setMovieLike(movieID):
 
 def unlikeMovie(userID, mid):
 	# Format SQL to remove like from table
-	sql = 'DELETE FROM UserLikes WHERE user_id="{}" AND mid="{}"'.format(userID, mid);
+	sql = 'DELETE FROM UserLikes WHERE user_id="{}" AND movie_id="{}"'.format(userID, mid);
 	print sql
+	# Execute SQL
+	cursor.execute(sql)
+	db.commit()
+	return True
 
 def getRecommendations():
 	# Formal SQL to get Followees' movie likes
