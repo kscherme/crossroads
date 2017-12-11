@@ -388,11 +388,12 @@ def search(searchTerms = None):
 @app.route("/likes", methods=['GET', 'POST'])
 def likes():
 	tuples = []
-	tuples = getLikes(user.id, user.username)
 	if request.method == 'POST':
 		if request.form['submit'] == 'Unlike':
 			mid = request.form['movieID']
 			unlikeMovie(user.id, mid)
+
+	tuples = getLikes(user.id, user.username)
 	if tuples:
 		return render_template("likes.html", tuples=tuples)
 	else:
