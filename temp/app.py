@@ -259,7 +259,7 @@ def unlikeMovie(userID, mid):
 
 def getRecommendations():
 	# Formal SQL to get Followees' movie likes
-	sql = 'SELECT UserLikes.movie_id, Movies.title, Movies.year FROM UserLikes, Following, Movies WHERE Following.Follower = "{}" and UserLikes.user_id = Following.Following and UserLikes.movie_id = Movies.movieID GROUP BY UserLikes.movie_id LIMIT 5'.format(user.id)
+	sql = 'SELECT movieID, title from Movies m, (select movie_id, count(movie_id) as movie_count from UserLikes u, (select Following from Following f where f.Follower="{}") f where f.Following = u.user_id group by movie_id order by movie_count DESC) A where A.movie_id = m.movieID'.format(user.id)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
