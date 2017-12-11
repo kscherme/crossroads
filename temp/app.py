@@ -248,6 +248,11 @@ def setMovieLike(movieID):
 	db.commit()
 	return True
 
+def unlikeMovie(userID, mid):
+	# Format SQL to remove like from table
+	sql = 'DELETE FROM UserLikes WHERE user_id="{}" AND mid="{}"'.format(userID, mid);
+	print sql
+
 def getRecommendations():
 	# Formal SQL to get Followees' movie likes
 	sql = 'SELECT UserLikes.movie_id, Movies.title, Movies.year FROM UserLikes, Following, Movies WHERE Following.Follower = "{}" and UserLikes.user_id = Following.Following and UserLikes.movie_id = Movies.movieID GROUP BY UserLikes.movie_id LIMIT 5'.format(user.id)
@@ -259,7 +264,7 @@ def getRecommendations():
 
 def getLikes(userID, username):
 	# Format SQL for Likes
-	sql = 'SELECT title FROM Movies WHERE movieID IN (SELECT movie_id FROM UserLikes WHERE user_id={})'.format(userID)
+	sql = 'SELECT movieID, title FROM Movies WHERE movieID IN (SELECT movie_id FROM UserLikes WHERE user_id={})'.format(userID)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
@@ -380,6 +385,10 @@ def search(searchTerms = None):
 def likes():
 	tuples = []
 	tuples = getLikes(user.id, user.username)
+	if request.method == 'POST':
+		if request.form['submit'] == 'Unlike':
+			mid = request.form['movieID']
+			unlikeMovie(user.id, mid)
 	if tuples:
 		return render_template("likes.html", tuples=tuples)
 	else:
