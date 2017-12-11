@@ -43,12 +43,9 @@ def searchMovieDB(title):
 	sql = 'SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m LEFT JOIN Ratings r ON r.MovieID=m.movieID WHERE Title LIKE "{}" ORDER BY r.Rating DESC'.format(
 		titleLike)
 	# Execute SQL
-	print "Before"
 	cursor.execute(sql)
-	print "After"
 	# Collect Results
 	tuples = cursor.fetchall()
-	print "Done"
 	return tuples
 
 def advSearchMovieDB(titleBeginning, titleContains, beginningYear, endingYear, \
@@ -104,8 +101,8 @@ def getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, 
 		
 	sql = 	'''	
 			SELECT 	m.movieID, m.title, m.year, r.Rating
-	       		FROM 	Movies m, Ratings r, Actors a, AppearsIn ai
-	       		WHERE 	m.movieID=r.MovieID AND m.movieID=ai.movieID {}{}{}{};'''.format(titleClause, yearClause, actorClause, ratingClause)
+	       		FROM 	Movies m, Ratings r, Actors a, AppearsIn ai, Genres g
+	       		WHERE 	m.movieID=r.MovieID AND m.movieID=ai.movieID AND m.movieID=g.movieID {}{}{}{}{};'''.format(titleClause, yearClause, genreClause, actorClause, ratingClause)
 	print sql 
 	return sql
 	
@@ -302,6 +299,9 @@ def home():
 def adv_search():
 	tuples = []
 	if request.method == 'POST':
+		if request.form['submit'] == 'Like':
+			mid = request.form['movieID']
+			setMovieLike(mid)
 		if request.form['submit'] == 'SEARCH':
 			titleBeginning = request.form['titleBeginning']
 			titleContains = request.form['titleContains']
@@ -360,7 +360,6 @@ def insert():
 @app.route("/search/<searchTerms>", methods=['POST', 'GET'])
 @app.route("/search", methods=['POST', 'GET'])
 def search(searchTerms = None):
-	print "Start"
 	tuples = []
 	if (searchTerms != None):
 		tuples = searchMovieDB(searchTerms)
@@ -368,15 +367,10 @@ def search(searchTerms = None):
 	if request.method == 'POST':
 		if request.form['submit'] == 'Like':
 			mid = request.form['movieID']
-			print "Here"
 			setMovieLike(mid)
-			print mid, 'df'
 		if request.form['submit'] == 'SEARCH':
 			searchTerms = request.form['movieSearch']
-			print "There"
 			tuples = searchMovieDB(searchTerms)
-			print 'dfd'
-	print "Done"
 	if tuples:
 		return render_template("search.html", tuples=tuples, searchTerms=searchTerms)
 	else:
