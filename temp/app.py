@@ -120,13 +120,13 @@ def searchMovieDBRate(title):
 	tuples = cursor.fetchall()
 	return tuples
 
-def searchUserDB(user):
+def searchUserDB(user, curr_user):
 	user = "%" + user + "%"
 	# Format SQL
 	if user is not "%%":
-		sql = 'SELECT * FROM Users WHERE username LIKE "{}"'.format(user)
+		sql = 'SELECT * FROM Users WHERE username LIKE "{}" AND id != "{}"'.format(user, curr_user)
 	else:
-		sql = 'SELECT * FROM Users'
+		sql = 'SELECT * FROM Users WHERE id != "{}"'.format(curr_user)
 	# Execute SQL
 	cursor.execute(sql)
 	# Collect Results
@@ -418,10 +418,10 @@ def follow():
 			setFollowingUser(userID)
 		if request.form['submit'] == 'SEARCH ALL USERS':
 			searchUser = ''
-			tuples = searchUserDB(searchUser)
+			tuples = searchUserDB(searchUser, user.id)
 		elif request.form['submit'] == 'SEARCH':
 			searchUser = request.form['userSearch']
-			tuples = searchUserDB(searchUser)
+			tuples = searchUserDB(searchUser, user.id)
 
 		if tuples:
 			return render_template("follow.html", tuples=tuples)
