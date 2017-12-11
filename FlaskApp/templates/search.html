@@ -3,16 +3,39 @@
 
 <head>
 	<title>The Crossroads of Film</title>
+	<link rel="stylesheet" href="../static/css/styles.css">
 </head>
 <body>
-	<h1> Welcome to the Crossroads of Film</h1>
-	<h5> Currently under construction</h5>
-	<p>Movie: {{ name }}</p>
-        <p>MovieID: {{ movieID }}</p>
-        <p>Year: {{ year }}</p>
-	<form action="/delete" method="post">
-                <input type="hidden" name="movieID" value=movieID>
-		<p><input type = "submit" value = "DELETE" /></p>
+	<h1 class="mainTitle" align="center"> Welcome to the Crossroads of Film</h1>
+	<form action="/search" method="post">
+		<p>Search by Movie Title: <input type="text" name= "movieSearch" /></p>
+		<p><input type = "submit" name = 'submit' value = "SEARCH" /></p>
 	</form>
+	<table>
+		<tr>
+			<th>Movie Title</th>
+			<th>Year</th>
+			<th>Rating</th>
+		</tr>
+		{% if tuples %}
+			{% for row in tuples %}
+				<tr>
+					<td>{{row[1]}}</td> 
+					<td>{{row[2]}}</td>
+					<td>{{row[3]}}</td>
+					<td>
+						<form action="/search/{{ searchTerms }}" method="post">
+							<input type = "hidden" name = "movieID" value = "{{ row[0] }}">
+							<input type = "submit" name = 'submit' value = "Like" />
+						</form>
+					</td>
+				</tr>
+			{% endfor %}
+		{% else %}
+			<td>No movies found!</td><br>
+		{% endif %}
+
+	</table>
+	<a href="{{ url_for('homepage') }}" class="large_button">Back</a>
 </body>
 </html>
