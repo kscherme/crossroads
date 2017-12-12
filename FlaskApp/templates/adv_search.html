@@ -70,7 +70,7 @@
 					<td>{{row[2]}}</td>
 					<td>{{row[3]}}</td>
 					<td>
-						<form action="/search/{{ searchTerms }}" method="post">
+						<form action="/search" method="post">
 							<input type = "hidden" name = "movieID" value = "{{ row[0] }}">
 							<input type = "submit" name = 'submit' value = "Like" />
 						</form>
