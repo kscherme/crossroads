@@ -62,48 +62,66 @@ def advSearchMovieDB(titleBeginning, titleContains, beginningYear, endingYear, \
 
 def getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, \
 			genre, actor, beginningRating, endingRating):
-	### Format inputs into SQL
-	# Title
-	titleClause = ''
-	if titleBeginning != '':
-		titleClause += 'AND m.title LIKE \'{}%\' '.format(titleBeginning)
-	if titleContains != '':
-		titleClause += 'AND m.title LIKE \'%{}%\' '.format(titleContains)
-	
-	# Year Range
-	
-	yearClause = ''
-	if beginningYear != '':
-		yearClause += 'AND m.year > {} '.format(beginningYear) 
-	if endingYear != '':
-		yearClause += 'AND m.year < {} '.format(endingYear)	
 
-	# Genre
-	genreClause = ''
-	if genre != 'All' and genre != '':
-		genreClause = 'AND g.genre=\'' + genre + '\' '
+	tablesClause = '''SELECT m.movieID, m.title, m.year, r.Rating FROM Movies m INNER JOIN Ratings r ON m.movieID=r.MovieID'''
+	whereClause = 'WHERE '
+	doIncludeWhere = False;
+	if titleBeginning != '':
+		whereClause += 'm.title LIKE \'{}%\''.format(titleBeginning)
+		doIncludeWhere = True;
 	
-	# Actor
-	actorClause = ''
-	if actor != '':	
-		actorClause += 'AND a.name LIKE \'%{}%\' AND a.actorID=ai.actorID '.format(actor)
+	if titleContains != '':
+		if doIncludeWhere:
+			whereClause += ' AND '
+		whereClause += 'm.title LIKE \'%{}%\''.format(titleContains)
+		doIncludeWhere = True;
+
+	if beginningYear != '':
+		if doIncludeWhere:
+			whereClause += ' AND '
+		whereClause += 'm.year >= {}'.format(beginningYear)
+		doIncludeWhere = True;
+
+	if endingYear != '':
+		if doIncludeWhere:
+			whereClause += ' AND '
+		whereClause += 'm.year <= {}'.format(endingYear)
+		doIncludeWhere = True;
 	
-	# Rating
-	ratingClause = ''
+	if genre != '':
+		if doIncludeWhere:
+			whereClause += ' AND '
+		tablesClause += ' INNER JOIN Genres g ON g.movieID=m.movieID'
+		whereClause += 'g.genre=\'{}\''.format(genre)
+		doIncludeWhere = True;
+
+	if actor != '':
+		if doIncludeWhere:
+			whereClause += ' AND '
+		tablesClause += ' INNER JOIN AppearsIn ai ON ai.movieID=m.movieID'
+		tablesClause += ' INNER JOIN Actors a ON a.actorID=ai.actorID'
+		whereClause += 'a.name like \'%{}%\''.format(actor)
+		doIncludeWhere = True;
+
 	if beginningRating != '':
-		ratingClause += 'AND r.rating >= {} '.format(beginningRating)
-		# if endingRating != '':
-		# 	ratingClause += ' AND '			
+		if doIncludeWhere:
+			whereClause += ' AND '
+		whereClause += 'rating >= {}'.format(beginningRating)
+		doIncludeWhere = True;
 
 	if endingRating != '':
-		ratingClause += 'AND rating <= {} '.format(endingRating)
+		if doIncludeWhere:
+			whereClause += ' AND '
+		whereClause += 'rating <= {}'.format(endingRating)	
+		doIncludeWhere = True;
 	
-		
-	sql = 	'''	
-			SELECT 	m.movieID, m.title, m.year, r.Rating
-	       		FROM 	Movies m, Ratings r, Actors a, AppearsIn ai, Genres g
-	       		WHERE 	m.movieID=r.MovieID AND m.movieID=ai.movieID AND m.movieID=g.movieID {}{}{}{}{};'''.format(titleClause, yearClause, genreClause, actorClause, ratingClause)
-	print sql 
+
+	sql = tablesClause
+	if doIncludeWhere:
+		whereClause += ' GROUP BY m.movieID;'
+		sql += " " + whereClause
+
+	print sql
 	return sql
 	
 
