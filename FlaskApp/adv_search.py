@@ -31,7 +31,7 @@ def goodAdvSearch(titleBeginning, titleContains, beginningYear, endingYear, \
 		whereClause += 'm.year <= {}'.format(endingYear)
 		doIncludeWhere = True;
 	
-	if genre != '':
+	if genre != '' and genre != 'All':
 		if doIncludeWhere:
 			whereClause += ' AND '
 		tablesClause += ' INNER JOIN Genres g ON g.movieID=m.movieID'
@@ -126,4 +126,4 @@ def getAdvSearchResults(titleBeginning, titleContains, beginningYear, endingYear
 
 #getAdvSearchResults('begin', 'contains', 1900, 2000, 'Action', 'Brad Pitt', 5.0, 8.0)
 #getAdvSearchResults('Up', '', 2005, 2017, 'Animation', 'Pete Docter', 1.0, 10.0)
-goodAdvSearch('Up', '', 2005, 2017, 'Animation', 'Pete Docter', 1.0, 10.0)
+goodAdvSearch('U', '', 2005, 2017, 'All', 'Pete Docter', 1.0, 10.0)

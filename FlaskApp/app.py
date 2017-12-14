@@ -88,7 +88,7 @@ def getAdvSearchQuery(titleBeginning, titleContains, beginningYear, endingYear, 
 		whereClause += 'm.year <= {}'.format(endingYear)
 		doIncludeWhere = True;
 	
-	if genre != '':
+	if genre != '' and genre != 'All':
 		if doIncludeWhere:
 			whereClause += ' AND '
 		tablesClause += ' INNER JOIN Genres g ON g.movieID=m.movieID'
